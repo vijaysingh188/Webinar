@@ -1,0 +1,524 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} Subscription Master-Module Master {% endblock %}
+
+{% block body %}
+
+           <div class="main">
+            <div class="inner-navbar">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" href="Subscription_Master-Existing_Module_Master.html">Single Investigation</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Subscription_Master-Existing_Add-on_Services.html">Panel Investigation</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="content-holder">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div {% if message.tags %} class="alert {{ message.tags }} text-center"{% endif %}>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    <div class="row">
+                        <div class="col-md-12 order-md-1">
+                            <h5 class="title-holder">Create Laboratory Module </h5>
+                            <div class="btn-holder">
+                                <a class="link-btn" href="{% url 'laboratorytable' %}">Back to list</a>
+                            </div>
+                            
+                                
+                                  
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="needs-validation" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            
+                                           
+                                            <div class="col-md-4 mb-3">
+                                            <label for=""> Investigation Name <span class="red-color"> * </span></label>
+                                            {{ rag.investigationname | add_class:'form-control' }}
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Synonyms<span class="red-color">  </span></label>
+                                        {{ rag.synonyms |  add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Important Notes <span class="red-color">  </span></label>
+                                            {{ rag.importantnotes | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Display result Field <span class="red-color"> * </span></label>
+                                                <label><input type="radio" name="shipping" id="rd1">Empty Textbox</label>
+                                                <label><input type="radio" name="shipping" id="rd2">Pre-Define Dropdown</label>
+                                                
+                                           </div>
+                                           
+                                                 <div class="col-md-4 mb-3" id="sty1">
+                                                   <label>Display DropDownList</label>
+                                            
+                                              {{ rag.selectdropdownlist }}
+                                                   </div>
+                                            
+
+                                                 <div class="col-md-4 mb-3" id="sty1">
+                                          <label>Select<span class="red-color"> * </span></label>
+                                                {{ rag.select | add_class:'form-control' }}
+                                            </div>
+                                        </div>
+                                   
+
+
+                                        
+                            <div class="row">
+                                
+                            <div class="col-md-12" id="sty">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="datatable">
+                                        <thead>
+                                           <tr>
+                                                <th colspan="3" style="border-bottom: 0px; ">&nbsp;</th>
+                                                 <th colspan="2" style="border-bottom: 0px; "> Refrence range(UMO1)</th>
+                                                 <th colspan="1" style="border-bottom: 0px; "> Conversition To Digits</th>
+                                                 <th colspan="1" style="border-bottom: 0px; "> Refrence Range(UMO1)</th>
+                                                 <th colspan="1" style="border-bottom: 0px; "> Refrence Range(UMO2)</th>
+                                                  <th colspan="1" style="border-bottom: 0px; "> Action</th>
+                                              </tr>
+                                               </thead>
+                                                 <tbody id = "data_table">
+                                                 
+                                            <tr class="item">
+                                                <th style="display: none;">Date</th
+                                                >
+                                             
+                                               
+                                                <th id ="1">
+                                                <label>From <span class="red-color"> * </span></label>
+                                               <div class="from" name="froms"> {{ rag.froms | add_class:'form-control' }}  </div>
+                                                </th>
+                                             
+                                                
+                                               
+                                                   
+                                                 <th id="2">
+                                                <label>To <span class="red-color" id="to"> * </span></label>
+                                             <div class="to"name="to"> {{ reg.to | add_class:'form-control' }}</div>
+                                            </th>
+                                                 <th id="3">
+                                                <label>Gender <span class="red-color" id="gen"> * </span></label>
+                                 <div class="gender "name="gender">< {{ reg.gender | add_class:'form-control' }}</div>
+                                            </th>
+                                                <th id="4">
+                                                <label>UMO1 <span class="red-color" >  </span></label>
+                                              <div class="umo1" name="umo1">  {{ reg.umo1 | add_class:'form-control' }}</div>
+                                            </th>
+                                                 <th id="5">
+                                                <label>UMO2 <span class="red-color" >  </span></label>
+                                               <div class="umo2" name="umo2"> {{ reg.umo2 | add_class:'form-control' }}</div>
+                                            </th>
+                                                 <th id="6">
+                                                    <label> <span class="red-color" >  </span></label>
+                                       
+                                             <div class="conversationfactor" name="conversationfactor"> {{ reg.conversationfactor | add_class:'form-control' }}</div>
+                                            
+                                                   
+                                                 </th>
+                                                 <th id="7">
+                                                
+                                                 <span class="red-color">  </span>
+                                             <div class="refrencerange" name="refrencerange">   {{ reg.refrencerange }}</div>
+                                            </th>
+                                                
+                                                  <th id="8">
+                                                
+                                                 <span class="red-color">  </span>
+                                               <div class="high" name="high"> {{ reg.high  }}</div>
+                                            </th>
+                                            <th>
+                                                
+                                            <div class="btn btn-danger btn-sm remove"><span class='glyphicon-minus'></span></div>
+                                        </th>
+                                            </tr>
+                                          </tbody>
+                                         </table>
+
+       </div>
+   </div>
+</div>
+
+
+
+                                               
+                                                <div class="text-right">
+                                                     <button class="item" name="remove">Add New Row</button>
+                                                    <button id="newrow" >Forgot Password</button></p>
+                                                 </div>
+                                   
+                                            <div class="col-md-12">
+                                                <div class="text-center">
+                                                 
+                                                <div class="mybtn-holder">
+                          <button class="mybtn" data-toggle="collapse" data-target="#demo">Cancel</button>
+                                                <button class="mybtn" type="submit" id="save">Add</button>
+                                                    
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                   
+                               
+                
+                                   
+                                   
+                                   
+
+                                            
+    {% endblock %}
+
+    {% block javascript %}                              
+    <script>
+     $(function() {
+        $('#rd1').click('click',function(){
+            $('#sty1').toggle('#sty1');
+    });
+    });
+        $(function() {
+        $('#rd2').click('click',function(){
+            $('#sty').toggle();
+    });
+    });
+          $(function() {
+            $('#newrow').click('.add',function() {
+                var froms="<tr id='data_table'>"
+                     froms+="<td><input class='form-control froms' id='1'></td>"
+                    froms+="<td><input class='form-control to' id='2'></td>"
+                    froms+="<td><input class='form-control gender' id='3'></td>"
+                    froms+="<td><input class='form-control refrencerange' id='4'></td>"
+                    froms+="<td><input class='form-control umo1' id='5'></td>"
+                    froms+="<td><input class='form-control umo2' id='6'></td>"
+                     froms+="<td>High <input class='refrencerange'id='7' ></td>"
+                    froms+="<td>High <input class='form-control high'id='8' ></td>"
+                    froms+="<td><button type ='button' name ='remove' class='btn btn-danger btn-sm remove'><span class='glyphicon-minus'></span></button></td>";
+                    froms+="</tr>";
+                    var table_element = $("#data_table");
+                    tablebody=$("table tbody")
+                    tablebody.append(froms)
+                });
+       $(document).on('click', '.remove' ,function(){
+        $(".item").remove();
+         
+                });
+      
+        $("#save").click('submit', function() {
+          var json_data=[];
+        $("tbody tr").each(function(){
+        
+               var froms=$(this).children().eq(0).text();
+               var to=$(this).children().eq(1).text();
+               var gender=$(this).children().eq(2).text();
+               var umo1= $(this).children().eq(3).text();
+                var umo2= $(this).children().eq(4).text();
+                var conversationfactor=$(this).children().eq(5).text();
+                var refrencerange= $(this).children().eq(6).text();
+                var high=$(this).children().eq(7).text();
+            
+                var json= { 'froms':froms,
+                    'to':to,
+                    'gender':gender,
+                    'umo1':umo1,
+                    'umo2':umo2,
+                    'conversationfactor':conversationfactor,
+                    'refrencerange':refrencerange,
+                    'high':high,
+                   
+                 };
+                console.log(json)
+                console.log(froms) 
+                console.log(to)
+                console.log(gender)
+                console.log(umo1)
+                console.log(umo2)
+                console.log(conversationfactor)
+                console.log(refrencerange)
+                console.log(high)
+                
+               
+            
+           json_data.push(json);
+             
+    
+
+               var strang=JSON.stringify(json_data)
+      
+          
+       
+          $.ajax({
+            url: '{% url 'laboratory' %}',
+            type: 'POST',
+           data:strang,    
+           })
+
+          .done(function(data){ 
+            console.log("success");
+          })
+          .fail(function(output){
+            console.log("error");
+        })
+      
+     });
+    });
+});
+
+ </script>
+ {% endblock %}
+                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

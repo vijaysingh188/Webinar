@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} service master {% endblock %}
+
+{% block body %}
+
+        
+        <div class="main">
+            <div class="col-md-12">
+                <div class="content-holder">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div {% if message.tags %} class="alert {{ message.tags }} text-center"{% endif %}>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+           
+                    <div class="row">
+                        <div class="col-md-12 order-md-1">
+                            <h5 class="title-holder">Create New Event</h5>
+                            <div class="btn-holder">
+                                <a class="link-btn" href="{% url 'eventtable' %}">Back to list</a>
+                            </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <form class="needs-validation" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            
+                                        
+                                        <div class="col-md-4 mb-3">
+                                                <label>Event Title <span class="red-color"> * </span></label>
+                                               {{ form.eventtitle | add_class:'form-control' }}
+                                            </div>
+                                        
+                                        
+                                            <div class="col-md-4 mb-3">
+                                                <label for=""> Target audience <span class="red-color"> * </span></label>
+                                              {{ form.targetaudiance | add_class:'form-control' }}
+                                                  
+                                                
+                                                    
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label for=""> Event Type <span class="red-color"> * </span></label>
+                                               
+                                                  {{ form.eventtype | add_class:'form-control' }}
+                                                    
+                                               
+                                                    
+                                            
+                                            </div>
+                                            
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Event Date / Time <span class="red-color"> * </span></label>
+                                                {{ form.created_on | add_class:'form-control' }}
+                                                
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Chairpersons Name</label>
+                                               {{ form.Chairpersons | add_class:'form-control' }}
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Chairpersons Mobile Number</label>
+                                                {{ form.mobilenumber | add_class:'form-control' }}
+                                                
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Chairpersons Email Address</label>
+                                                  {{ form.email | add_class:'form-control' }}
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label>Moderator Name</label>
+                                                  {{ form.Moderatorname | add_class:'form-control' }}
+                                                
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Moderator Mobile Number</label>
+                                                 {{ form.mmobile | add_class:'form-control' }}
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Moderator Email Address</label>
+                                               {{ form.memail | add_class:'form-control' }}
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label>Contact Person Name</label>
+                                                 {{ form.ContactPersonanme | add_class:'form-control' }}
+                                                
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Contact Mobile Number</label>
+                                                
+                                                 {{ form.Cmobile | add_class:'form-control' }}
+                                            </div>
+                                            
+                                             <div class="col-md-4 mb-3">
+                                                <label>Contact Email Address</label>
+                                             {{ form.Cemail| add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Organized by</label>
+                                                 {{ form.organisedby | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Supported by</label>
+                                                 {{ form.sponserby | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Registration Required</label>
+                                                 {{ form.Registerationrequired }}
+                                                 
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label>Payment Required</label>
+                                                 {{ form.paymentrequired }}
+                                                 
+                                            </div>
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label>Partner Visibility</label>
+                                                 {{ form.partnerrequired }}
+                                        
+                                            </div>
+
+                                            
+
+                                            <div class="col-md-12">
+                                                <div class="mybtn-holder">
+                                                    <button class="mybtn" data-toggle="collapse" data-target="#demo">Cancel</button>
+                                                    <button class="mybtn" type="submit">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    {% endblock %}
+    {% block javascript %}
+    <script>
+  $(function() {
+    $( "#datetime_from" ).datepicker({
+      dateFormat: 'dd/mm/yy',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2020",
+      // You can put more options here.
+
+  });
+});
+  </script>
+
+    {% endblock %}

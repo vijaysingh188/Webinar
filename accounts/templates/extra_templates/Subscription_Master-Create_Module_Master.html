@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} Subscription Master - Module Master {% endblock %}
+<style>
+  .fa-calendar {
+    background-color:#212529;
+  }
+</style>
+
+{% block body %}
+
+        <div class="main">
+            <div class="inner-navbar">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" href="Subscription_Master-Existing_Module_Master.html">Module Master</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Subscription_Master-Existing_Add-on_Services.html">Add-on Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="Subscription_Master-Existing_Subscription_Plan.html">Subscription Plan</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="content-holder">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div {% if message.tags %} class="alert {{ message.tags }} text-center"{% endif %}>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 order-md-1">
+                            <h5 class="title-holder">Create New Module</h5>
+                            <div class="btn-holder">
+                                <a class="link-btn" href="{% url 'existing_module_master' %}">Back to list</a>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="needs-validation" method="post">
+                                        <div class="row">
+                                            <div class="col-md-4 mb-3">
+                                                <label for=""> Module <span class="red-color"> * </span></label>
+                                                {{ form.module_name | add_class:'form-control' }}
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>Module Code <span class="red-color"> * </span></label>
+                                                {{ form.module_code | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Number of Patients <span class="red-color"> * </span></label>
+                                                {{ form.no_of_patients | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Web Space <span class="red-color"> * </span></label>
+                                              <input type="text" id="web_space"{{ form.web_space | add_class:'form-control' }}>
+                                              <div  class="errorlist">        <div class="row">
+                                            <div class="col-lg-3"></div>
+                                            <div class="col-md-12 col-lg-6">
+                                                <label for="">Enter new password</label>
+                                                <input type="password"  class="form-control" name="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" id="myInput2" value="" required />
+                                                <input type="checkbox" onclick="myFunction2()"><span style="color:#5b5b5b">Show Password</span>
+                                                <span style="color:#5b5b5b;font-size:11px;">(one uppercase,one special character,one number,length should be minimum 6)</span>
+                                                <hr>                                                      </div>
+                                                </div>
+                                                </div>                                                                                                 
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>Amount <span class="red-color"> * </span></label>
+                                                {{ form.amount | add_class:'form-control' }}
+                                            </div>
+                                             <div class="col-md-4 mb-3">
+                                                <label>CGST <span class="red-color"> * </span></label>
+                                                {{ form.cgst | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label>SGST <span class="red-color"> * </span></label>
+                                                {{ form.sgst | add_class:'form-control' }}
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <div class="input-group date" id="datepicker" data-target-input="nearest">
+                                                <label>GST <span class="red-color"> * </span></label>
+                                                {{ form.gst | add_class:'form-control' }}
+                                                
+    
+                                        </div>
+                                    </div>
+     
+<input type="text" id="password" value="Sample@1">
+<input type="button" id="submit" onclick="password_check()" value="submit">
+                                        
+                                            
+                                            <div class="col-md-4 mb-3">
+                                                <label>Total Amount <span class="red-color"> * </span></label>
+                                                {{ form.total_amount | add_class:'form-control' }}
+                                            </div>
+                                       <input type="text" id="user" onkeyup="validation()">
+                                            <div class="col-md-12">
+                                                <div class="mybtn-holder">
+                                                    <button class="btn" data-toggle="collapse" data-target="#demo">Cancel</button>
+                                                    <button class="mybtn" type="submit" id="create">Add</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}
+   {% block javascript %}
+   <script>
+    function checkPassword(form) { 
+                password1 = form.password1.value; 
+                password2 = form.password2.value; 
+  
+                // If password not entered 
+                if (password1 == '') 
+                    alert ("Please enter Password"); 
+                      
+                // If confirm password not entered 
+                else if (password2 == '') 
+                    alert ("Please enter confirm password"); 
+                      
+                // If Not same return False.     
+                else if (password1 != password2) { 
+                    alert ("\nPassword did not match: please enter correct password...") 
+                    return false; 
+                } 
+  
+                // If same return True. 
+                else{ 
+                    alert("Password Match: Welcome to Health Perigon!") 
+                    return true; 
+                } 
+            } 
+        </script>
+        
+        
+         <script>
+    function myFunction1() {
+  var x = document.getElementById("myInput1");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+    </script>
+    
+     <script>
+    function myFunction2() {
+  var x = document.getElementById("myInput2");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+    </script>
+    
+     <script>
+    function myFunction3() {
+  var x = document.getElementById("myInput3");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+    </script>
+        
+        
+        <script>
+            function specialty2Show() {
+              var x = document.getElementById("hide1");
+              if (x.style.display === "none") {
+                x.style.display = "block";
+              } else {
+                x.style.display = "none";
+              }
+            }
+        </script>
+{% endblock %}
