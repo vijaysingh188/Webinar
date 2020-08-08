@@ -295,10 +295,10 @@ span.switch-label:after {
                                     <h6 class="heading6">Event Registration</h6>
                                  </div>
                                  <div class="col-md-6">
+<!--                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>-->
+                                   <label for="" >Header<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum size of 1MB)</span></label>
 
-                                   <label>Header<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum size of 1MB)</span></label>
-
-                                         <input type='file' name="header_eventimages" class="form-control" id="header_eventimages" onchange="readURL(this);" />
+                                         <input type='file' name="header_eventimages" id="header_eventimages" onchange="readURL(this);" />
                                    <hr>
 
 
@@ -308,7 +308,7 @@ span.switch-label:after {
 
                                    <label>Footer<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum     size of 1MB)</span></label>
 
-                                       <input type='file' name="footer_eventimage"  class="form-control" id="footer_eventimage" onchange="readURL(this);" />
+                                       <input type='file' name="footer_eventimage" id="footer_eventimage" onchange="readURL(this);" />
                    <hr>
 
                                  </div>
@@ -325,7 +325,7 @@ span.switch-label:after {
                              <label>Streaming header<br><span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100
 
 Pixel and maximum size of 1MB)</span></label>
-                                              <input type='file'name="{{ form.footer_eventimage}}"id="streaming_header" onchange="readURL(this);" />
+                                              <input type='file'name="streaming_header" id="streaming_header" onchange="readURL(this);" />
 
                 <hr>
 
@@ -334,7 +334,7 @@ Pixel and maximum size of 1MB)</span></label>
                                 <div class="col-md-4">
 
                                                 <label>Left Panel<br><span style="font-size:11px;color:#cd2628"> (Upload image of .png or .jpeg format with 700*200 Pixel and maximum size of 1MB)</span></label>
-                                              <input type='file' name=streaming_leftpanel id="streaming_leftpanel" onchange="readURL(this);" />
+                                              <input type='file' name="streaming_leftpanel" id="streaming_leftpanel" onchange="readURL(this);" />
                                               <hr>
 
                                </div>
@@ -369,7 +369,7 @@ given frequency)</span></label>
               <div class="row">
 
                             <div class="col-md-8">
-                            <p class="minsp">Repeat Every&nbsp;&nbsp;</p><input type="number" class="form-control mins" id="frequency_ticket" nam e=frequency_ticket value="" required /><p class="minsp">&nbsp;&nbsp;Minutes</p>
+                            <p class="minsp">Repeat Every&nbsp;&nbsp;</p><input type="number" class="form-control mins" id="ticker_time" name="ticker_time" value="" required /><p class="minsp">&nbsp;&nbsp;Minutes</p>
                               </div>
 
                             </div>

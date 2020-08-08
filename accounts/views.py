@@ -18,49 +18,25 @@ import phonenumbers
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-# @csrf_exempt
-# def partner_visibility(request):
-# 	if request.method == 'POST':
-# 		print(request.user,'request.user')
-# 		form = EventregisteruserForm(request.POST)
-# 		profileform = EventregisteruserForm(request.POST, request.FILES)
-# 		print(form.is_valid)
-# 		if form.is_valid() and profileform.is_valid():
-# 			user = form.save()
-# 			profile = profileform.save(commit=False)
-#
-# 			profile.user = user
-#
-# 			if 'header_eventimage' in request.FILES:
-#
-# 				profile.picture = request.FILES['header_eventimage']
-# 				profile.save()
-#
-# 		else:
-# 			return redirect('/partner_visibility',
-# 							messages.success(request, 'form is invalid', 'alert-success'))
-# 	else:
-# 		form1 = EventregisteruserForm()
-# 		form2 = EventregisteruserForm()
-# 	return render(request, 'partner_visbility.html', {'form1': form1, 'form2': form2})
 
+@csrf_exempt
 def partner_visibility(request):
 	if request.method == 'POST':
-		print(request.user,'request.user')
 		form = EventregisteruserForm(request.POST, request.FILES)
+		print(form.errors)
 		if form.is_valid():
-			form = form.save(commit=False)
-			if 'header_eventimage' in request.FILES:
-				form.picture = request.FILES['header_eventimage']
-				form.save()
-
+			print("im here")
+			if form.save():
+				print("save")
+				return redirect('/partner_visibility',
+								messages.success(request, 'visibility is successfully updated.', 'alert-success'))
+			else:
+				return redirect('/partner_visibility', messages.error(request, 'visibilityis not saved', 'alert-danger'))
 		else:
-			return redirect('/partner_visibility',
-							messages.success(request, 'form is invalid', 'alert-success'))
+			return redirect('/partner_visibility', messages.error(request, 'visibilityis not valid', 'alert-danger'))
 	else:
-
 		form = EventregisteruserForm()
-	return render(request, 'partner_visbility.html', {'form':form})
+		return render(request, 'partner_visbility.html', {'form': form})
 
 @csrf_exempt
 def contact(request):

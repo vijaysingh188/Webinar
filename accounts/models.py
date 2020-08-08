@@ -12,9 +12,13 @@ import requests
 import pytz
 from django_countries.fields import CountryField
 
-def user_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+# def user_directory_path(instance, filename):
+#     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+#     return 'user_{0}/{1}'.format(instance.user, filename)
+
+# def user_directory_path(instance, filename):
+#     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+#     return 'user_{0}/{1}'.format(instance.user, filename)
 
 class CustomUser(AbstractUser):
     username = None
@@ -33,19 +37,16 @@ class CustomUser(AbstractUser):
 
 
 class Eventregisterationuser(models.Model):
-    Date = models.DateField(auto_now_add=True)
-    header_eventimage = models.ImageField(upload_to=user_directory_path,null=True,blank=True)
-    footer_eventimage = models.ImageField(upload_to=user_directory_path,null=True, blank=True)
-    streaming_header = models.ImageField(upload_to=user_directory_path,null=True, blank=True)
-    streaming_leftpanel = models.ImageField(upload_to=user_directory_path,null=True, blank=True)
-    streaming_rightpanel = models.ImageField(upload_to=user_directory_path,null=True, blank=True)
+    header_eventimage = models.ImageField(upload_to='images',null=True,blank=True)
+    footer_eventimage = models.ImageField(upload_to='images',null=True, blank=True)
+    streaming_header = models.ImageField(upload_to='images',null=True, blank=True)
+    streaming_leftpanel = models.ImageField(upload_to='images',null=True, blank=True)
+    streaming_rightpanel = models.ImageField(upload_to='images',null=True, blank=True)
     ticker_content = models.TextField(null=True, blank=True)
-    ticker_time = models.TimeField()
-    active = models.BooleanField(default=True)
-
+    ticker_time = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.id)
+        return self.ticker_content
 
 
 class Webregister(models.Model):

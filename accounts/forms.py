@@ -30,6 +30,13 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class EventregisteruserForm(ModelForm):
+    header_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
+    footer_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
+    streaming_header = forms.ImageField(widget=forms.FileInput, required=False)
+    streaming_rightpanel = forms.ImageField(widget=forms.FileInput, required=False)
+    streaming_leftpanel = forms.ImageField(widget=forms.FileInput, required=False)
+    ticker_content = forms.CharField(required=False)
+    ticker_time = forms.IntegerField(required=False)
     class Meta:
         model = Eventregisterationuser
         fields = ['header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel','ticker_content','ticker_time']

@@ -4,8 +4,8 @@ from accounts.models import CustomUser,Eventregisterationuser,Webregister #AddOn
 admin.site.register(CustomUser)
 
 class Eventregisteradmin(admin.ModelAdmin):
-    list_display = ['id', 'header_eventimage', 'ticker_content','active']
-    list_filter = ['header_eventimage', 'ticker_content','active']
+    list_display = ['id','ticker_content']
+    list_filter = ['ticker_content']
 
 
 admin.site.register(Eventregisterationuser,Eventregisteradmin)
