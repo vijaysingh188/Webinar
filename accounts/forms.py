@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
 from django.forms import ModelForm
-from .models import CustomUser,Eventregister1,Eventregisterationuser,SecurityQuestions,Contact  # ModuleMaster, ,AddOnServices,pharamcytab,Emptytext,Labour,Empty,Eventregister1
+from .models import CustomUser,Webregister,Eventregisterationuser,SecurityQuestions,Contact  #RegisterProfile, ModuleMaster, ,AddOnServices,pharamcytab,Emptytext,Labour,Empty,Eventregister1
 from django.core.validators import RegexValidator
 
 from django_countries.fields import CountryField
@@ -18,55 +18,79 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class CustomUserCreationForm(UserCreationForm):
-	class Meta(UserCreationForm):
-		model = CustomUser
-		fields = ('email',)
+    class Meta(UserCreationForm):
+        model = CustomUser
+        fields = ('email',)
 
 
 class CustomUserChangeForm(UserChangeForm):
-	class Meta:
-		model = CustomUser
-		fields = ('email',)
+    class Meta:
+        model = CustomUser
+        fields = ('email',)
 
 
-class  EventregisteruserForm(ModelForm):
+class EventregisteruserForm(ModelForm):
     class Meta:
         model = Eventregisterationuser
-        fields = ['header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel','ticker_content','frequency_ticket']
+        fields = ['header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel','ticker_content','ticker_time']
 
 
 
 class UserLoginForm(forms.Form):
-	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'User Name'}))
-	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'User Name'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password'}))
 
 
 class SecurityQuestionsForm(ModelForm):
-	question = forms.CharField(label='question', widget=forms.TextInput(attrs={'placeholder':'Security Question'}))
-	answer = forms.CharField(label='answer', widget=forms.TextInput(attrs={'placeholder':'Answer'}))
-	class Meta:
-		model = SecurityQuestions
-		fields = ['question','answer']
+    question = forms.CharField(label='question', widget=forms.TextInput(attrs={'placeholder':'Security Question'}))
+    answer = forms.CharField(label='answer', widget=forms.TextInput(attrs={'placeholder':'Answer'}))
+    class Meta:
+        model = SecurityQuestions
+        fields = ['question','answer']
 
 class PasswordForm(forms.Form):
-	password = forms.CharField(disabled=True, widget=forms.PasswordInput(attrs={'placeholder':'New Password'}))
-	password_confirm = forms.CharField(disabled=True, widget=forms.PasswordInput(attrs={'placeholder':'Re-enter Password'}))
+    password = forms.CharField(disabled=True, widget=forms.PasswordInput(attrs={'placeholder':'New Password'}))
+    password_confirm = forms.CharField(disabled=True, widget=forms.PasswordInput(attrs={'placeholder':'Re-enter Password'}))
 
 class ContactForm(ModelForm):
-	name = forms.CharField()
-	phone_no = forms.CharField()
-	email = forms.CharField()
-	message = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 5}))
+    name = forms.CharField()
+    phone_no = forms.CharField()
+    email = forms.CharField()
+    message = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 5}))
 
-	class Meta:
-		model = Contact
-		fields = ['name','phone_no','email','message']
+    class Meta:
+        model = Contact
+        fields = ['name','phone_no','email','message']
 
 
 class PasswordVerificationForm(forms.Form):
-	question = forms.ModelChoiceField(disabled=True, queryset=SecurityQuestions.objects.all(), empty_label=None, widget=forms.Select(attrs={'class':'form-control','id': 'sectxt'}))
-	answer = forms.CharField(disabled=True, label='answer', widget=forms.TextInput(attrs={'placeholder':'Answer','id': 'anstxt'}))
-	phone_no = forms.CharField(disabled=True,label='phone_no', widget=forms.TextInput(attrs={'placeholder':'Enter OTP','id': 'otptxt'}))
+    question = forms.ModelChoiceField(disabled=True, queryset=SecurityQuestions.objects.all(), empty_label=None, widget=forms.Select(attrs={'class':'form-control','id': 'sectxt'}))
+    answer = forms.CharField(disabled=True, label='answer', widget=forms.TextInput(attrs={'placeholder':'Answer','id': 'anstxt'}))
+    phone_no = forms.CharField(disabled=True,label='phone_no', widget=forms.TextInput(attrs={'placeholder':'Enter OTP','id': 'otptxt'}))
+
+# name = models.CharField(max_length=50)
+#     email1 = models.CharField()
+# #     password = models.CharField(max_length=50)
+# class RegisterProfileForm(forms.ModelForm):
+#
+#
+#     # name=
+#     # email=
+#     password = forms.CharField(widget=forms.PasswordInput())
+#     confirm_password = forms.CharField(widget=forms.PasswordInput())
+#     class Meta:
+#         model = RegisterProfile
+#         fields = ['name','email','password','confirm_password']
+#
+#     def clean(self):
+#         cleaned_data = super(RegisterProfileForm, self).clean()
+#         password = cleaned_data.get("password")
+#         confirm_password = cleaned_data.get("confirm_password")
+#
+#         if password != confirm_password:
+#             raise forms.ValidationError(
+#                 "password and confirm_password does not match"
+#             )
 
 
 class Eventregistertable(forms.ModelForm):
@@ -113,173 +137,32 @@ class Eventregistertable(forms.ModelForm):
     partnerrequired = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(), required=False)
 
     class Meta:
-        model = Eventregister1
+        model = Webregister
         fields = ['eventtitle', 'targetaudiance', 'eventtype', 'created_on', 'Chairpersons', 'name', 'mobilenumber',
                   'email', 'Moderatorname', 'mmobile', 'memail', 'ContactPersonanme', 'Cmobile', 'Cemail',
                   'organisedby', 'sponserby', 'Registerationrequired', 'paymentrequired', 'partnerrequired']
 
 
-# class ModuleMasterForm(ModelForm):
-#    module_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Module Name'}))
-#    module_code = CountryField()
-#    no_of_patients =forms.CharField(max_length=233)
-#    amount = forms.FloatField(widget=forms.TextInput(attrs={'id':'amount'}))
-#    web_space=forms.CharField(widget=forms.PasswordInput(attrs={'id':'pwword'}),min_length=6, validators=[validate_password_digit, validate_password_uppercase,validate_pass])
-#    cgst = forms.FloatField(widget=forms.TextInput(attrs={'id':'cgst'}))
-#    sgst = forms.FloatField(widget=forms.TextInput(attrs={'id':'sgst'}))
-#    gst = forms.FloatField(widget = forms.TextInput(attrs={'id':'gst','onfocus':'sum()'}))
-#    total_amount = forms.FloatField(widget=forms.TextInput(attrs={'id':'tot_amount','onfocus':'sum1()'}))
-#
-#
-#    def clean_email(self):
-#       print(type(self.cleaned.data))
-#       web_space=self.cleaned_data.get('web_space')
-#       with open("ecommerce/disposible_email_provider.txt",'r') as f:
-#          blacklist=f.read().splitlines()
-#
-#          for disposible_email in blacklist:
-#             if disposible_email in web_space:
-#                raise forms.validationError("gfhfhfgfgf" % disposible_email)
-#
-#    class Meta:
-#       model = ModuleMaster
-#       fields = ['module_name','module_code','no_of_patients','web_space','amount','cgst','sgst','gst','total_amount']
+# class eventvisible(ModelForm):
+    # user = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'date in days'}), required=False)
+    # header_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
+    # footer_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
+    # streaming_header = forms.ImageField(widget=forms.FileInput, required=False)
+    # streaming_rightpanel = forms.ImageField(widget=forms.FileInput, required=False)
+    # streaming_leftpanel = forms.ImageField(widget=forms.FileInput, required=False)
+    # active = forms.BooleanField(required=False)
 
+    # class Meta:
+    #     model = Eventregisterationuser
+    #     fields = ['header_eventimage', 'footer_eventimage', 'streaming_header', 'streaming_rightpanel',
+    #               'streaming_leftpanel', 'ticker_content', 'ticker_time']
 
-
-#
-# class AddServices(ModelForm):
-# 	add_onservices = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Add_on service'}),required=False)
-# 	add_on_servicescode = forms.IntegerField(widget=forms.TextInput(attrs={'id':'datepicker'}),required=False)
-# 	amount =forms.IntegerField()
-# 	cgst = forms.CharField(widget=forms.PasswordInput())
-# 	sgst = forms.CharField(widget=forms.TextInput(attrs={'id':'email'}),required=False)
-# 	gst  =forms.IntegerField()
-#
-#
-#
-#
-#
-#
-# class pharamcy(ModelForm):
-#    companyname=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'name'}))
-#    addresslineone=forms.CharField(required=False)
-#    addresslinetwo = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'address'}),required=False)
-#    streetname = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'streetname'}),required=False)
-#    city = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'city'}),required=False)
-#    country = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'country'}),required=False)
-#    state = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'state'}),required=False)
-#    pincode = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'pincode'}),required=False)
-#    nationalhead = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'nationalhead'}))
-#    contactnumber = forms.CharField(required=False)
-#    emailaddress = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'email'}))
-#    phonenumber = forms.CharField(widget=forms.PasswordInput(attrs={'id':'pwword'}),min_length=6, validators=[validate_password_digit, validate_password_uppercase,validate_pass])
-#    regionalhead =forms.CharField(widget=forms.TextInput(attrs= {'placeholder':'head'}))
-#    regionalcontactnumber = forms.CharField(required=False)
-#    regionalemailaddress = forms.CharField(widget=forms.TextInput(attrs={'id':'datepicker'}))
-#    regionalphonenumber = forms.CharField()
-#    scientifichead = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'head'}),required=False)
-#    scientificcontactnumber = forms.CharField(required=False)
-#    scientificemailaddress = forms.EmailField(error_messages={'invalid': 'This is my email error msg.'}, widget=forms.TextInput(attrs={'class':'form-control', 'autocomplete':'off'}), required=False)
-#    scientificphonenumber = forms.CharField(required=False)
-#
-#    def clean_email(self):
-#       print(type(self.cleaned.data))
-#       web_space=self.cleaned_data.get('web_space')
-#       with open("ecommerce/disposible_email_provider.txt",'r') as f:
-#          blacklist=f.read().splitlines()
-#
-#          for disposible_email in blacklist:
-#             if disposible_email in web_space:
-#                raise forms.validationError("gfhfhfgfgf" % disposible_email)
-#
-#    class Meta:
-#        model = pharamcytab
-#        fields = ['companyname','addresslineone','addresslinetwo','streetname','city','country','state','pincode','nationalhead','contactnumber','emailaddress','phonenumber','regionalhead','regionalcontactnumber','regionalemailaddress','regionalphonenumber','scientifichead','scientificcontactnumber','scientificemailaddress','scientificphonenumber']
-#
-#
-# class laboratorylab(ModelForm):
-#
-#    investigationname=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'name'}),required=False)
-#    synonyms=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Synonyms'}),required=False)
-#    importantnotes=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'importantnotes'}),required=False)
-#    GENDER_CHOICES=(
-#     	('Yes-No','Yes-No'),
-# 	    ('Present-Absent','Present-Absent'),
-# 	    ('Seen-Not','Seen-Not Seen'),
-# 	    ('Positive-Negative','Positive-Negative'),
-# 	    ('Customize-Value','Customize-Value'),
-#    )
-#    selectdropdownlist=forms.ChoiceField(choices=GENDER_CHOICES,widget=forms.RadioSelect(),required=False)
-#    select=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'select'}),required=False)
-#    froms=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'date in days'}),required=False)
-#    to = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'end date'}),required=False)
-#    gender= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'gender'}),required=False)
-#    umo1= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo1'}),required=False)
-#    umo2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo2'}),required=False)
-#    conversationfactor= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'factor'}),required=False)
-#    GEEKS_CHOICES=(
-#       ('high','True'),
-#       ('low','False'),
-#    )
-#
-#    refrencerange = forms.ChoiceField(choices=GEEKS_CHOICES,widget=forms.RadioSelect(),required=False)
-#    GENDER_CHOICES=(
-#       ('high','True'),
-#       ('low','False'),
-#    )
-#    high = forms.ChoiceField(choices=GENDER_CHOICES,widget=forms.RadioSelect(),required=False)
-#    class Meta:
-#       model=Labour
-#       fields=['id','investigationname','synonyms','importantnotes','selectdropdownlist','select','froms','to','gender','umo1','umo2','conversationfactor','refrencerange','high']
-# class labo(ModelForm):
-#    Labour=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'date in days'}),required=False)
-#    froms=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'date in days'}),required=False)
-#    to = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'end date'}),required=False)
-#    gender= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'gender'}))
-#    umo1= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo1'}),required=False)
-#    umo2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo2'}),required=False)
-#    conversationfactor= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'factor'}),required=False)
-#    GEEKS_CHOICES=(
-#       ('high','True'),
-#       ('low','False'),
-#    )
-#
-#    refrencerange = forms.ChoiceField(choices=GEEKS_CHOICES,widget=forms.RadioSelect(),required=False)
-#    GENDER_CHOICES=(
-#       ('high','True'),
-#       ('low','False'),
-#    )
-#    high = forms.ChoiceField(choices=GENDER_CHOICES,widget=forms.RadioSelect(),required=False)
-#
-#
-#    class Meta:
-#       model=Emptytext
-#       fields=['id','Labour','froms','to','gender','umo1','umo2','conversationfactor','refrencerange','high']
-#
-#
-# class labo1(ModelForm):
-#    Labour=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'date in days'}),required=False)
-#    froms=forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'date in days'}),required=False)
-#    to = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder':'end date'}),required=False)
-#    gender= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'gender'}),required=False)
-#    umo1= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo1'}))
-#    umo2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'umo2'}),required=False)
-#    conversationfactor= forms.CharField(widget=forms.TextInput(attrs={'placeholder':'factor'}),required=False)
-#    GEEKS_CHOICES=(
-#       ('high','True'),
-#       ('low','False'),
-#    )
-#    refrencerange = forms.ChoiceField(choices=GEEKS_CHOICES,widget=forms.RadioSelect(),required=False)
-#    GENDER_CHOICES=(
-#       ('high','True'),
-#
-#       ('low','False'),
-#    )
-#    high = forms.ChoiceField(choices=GENDER_CHOICES,widget=forms.RadioSelect(),required=False)
-#
-#
-#    class Meta:
-#       model=Empty
-#       fields=['id','Labour','froms','to','gender','umo1','umo2','conversationfactor','refrencerange','high']
-#
+        # def clean_header_eventimage(self, *args, **kwargs):
+        #     cleaned_data = super(eventvisible, self).clean()
+        #     header_eventimage = cleaned_data.get("header_eventimage")
+        #     if header_eventimage:
+        #         if header_eventimage.size > 5 * 1024 * 1024:
+        #             raise forms.ValidationError("File is too big.")
+        #         if not header_eventimage.suffix.strip().lower() in ['.jpg', '.png', '.gif', '.jpeg']:
+        #             raise forms.ValidationError("File does not look like as picture.")
+        #     return header_eventimage

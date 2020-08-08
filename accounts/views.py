@@ -1,15 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, get_user_model, login, logout
-from .forms import EventregisteruserForm,UserLoginForm, SecurityQuestionsForm, PasswordForm,  ContactForm, PasswordVerificationForm       #,ModuleMasterForm,AddServices,pharamcy,laboratorylab,labo ,labo1,Eventregistertable
+from .forms import EventregisteruserForm,Eventregistertable,UserLoginForm, SecurityQuestionsForm,PasswordForm,ContactForm,PasswordVerificationForm       #RegisterProfileForm,ModuleMasterForm,AddServices,pharamcy,laboratorylab,labo ,labo1,
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from .models import SecurityQuestions,Contact,Eventregister1                #,AddOnServices,pharamcytab,Labour,Emptytext,Empty,, ModuleMaster,
+from .models import SecurityQuestions,Contact,Webregister               #,AddOnServices,pharamcytab,Labour,Emptytext,Empty,, ModuleMaster,
 from django.http import Http404
 from django.contrib import messages
 from django.views.generic import ListView
 from django.http import JsonResponse
+import requests
 import json
 from django.core.exceptions import ValidationError
 import phonenumbers
@@ -17,32 +18,49 @@ import phonenumbers
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-@csrf_exempt
-def partner_visbility(request):
-    print(request)
+# @csrf_exempt
+# def partner_visibility(request):
+# 	if request.method == 'POST':
+# 		print(request.user,'request.user')
+# 		form = EventregisteruserForm(request.POST)
+# 		profileform = EventregisteruserForm(request.POST, request.FILES)
+# 		print(form.is_valid)
+# 		if form.is_valid() and profileform.is_valid():
+# 			user = form.save()
+# 			profile = profileform.save(commit=False)
+#
+# 			profile.user = user
+#
+# 			if 'header_eventimage' in request.FILES:
+#
+# 				profile.picture = request.FILES['header_eventimage']
+# 				profile.save()
+#
+# 		else:
+# 			return redirect('/partner_visibility',
+# 							messages.success(request, 'form is invalid', 'alert-success'))
+# 	else:
+# 		form1 = EventregisteruserForm()
+# 		form2 = EventregisteruserForm()
+# 	return render(request, 'partner_visbility.html', {'form1': form1, 'form2': form2})
 
-    if request.method == 'POST':
-        print("sdhjbdshbcksnnsfjncnf")
-        form = EventregisteruserForm(request.POST)
-        ticker_content = request.POST.get('ticker_content')
-        print(ticker_content)
-        print(form.errors)
-        if form.is_valid():
-            if form.save():
-                return redirect('/partner_visbility', messages.success(request,
-                                                                   'Thank you for contacting Us. Our team will contact you as soon as earliest.',
-                                                                   'alert-success'))
-            else:
-                return redirect('/partner_visbility', messages.error(request, 'Something went wrong!', 'alert-danger'))
-        else:
-            return redirect('/partner_visbility', messages.error(request, 'Form is not valid', 'alert-danger'))
-    else:
-        form = EventregisteruserForm()
-        return render(request, 'partner_visbility.html', {'form': form})
+def partner_visibility(request):
+	if request.method == 'POST':
+		print(request.user,'request.user')
+		form = EventregisteruserForm(request.POST, request.FILES)
+		if form.is_valid():
+			form = form.save(commit=False)
+			if 'header_eventimage' in request.FILES:
+				form.picture = request.FILES['header_eventimage']
+				form.save()
 
+		else:
+			return redirect('/partner_visibility',
+							messages.success(request, 'form is invalid', 'alert-success'))
+	else:
 
-
-
+		form = EventregisteruserForm()
+	return render(request, 'partner_visbility.html', {'form':form})
 
 @csrf_exempt
 def contact(request):
@@ -58,7 +76,7 @@ def contact(request):
 		else:
 			return redirect('/contact', messages.error(request, 'Form is not valid', 'alert-danger'))
 	else:
-		form = ContactForm()
+		form1 = ContactForm()
 		return render(request, "Contact_Us.html", {'form':form})
 
 
@@ -161,7 +179,7 @@ def login_view(request):
 			print("login done")
 			if next:
 				return redirect(next)
-			return redirect('home')
+			return redirect('eventtable')      #home
 		return render(request, "login.html", {'form': form})
 	else:
 		form = UserLoginForm(request.POST or None)
@@ -178,7 +196,7 @@ def login_view(request):
 			login(request, user)
 			if next:
 				return redirect(next)
-			return redirect('home')
+			return redirect('eventtable')           #home
 		return render(request, "login.html", {'form': form, 'form1':form1})
 
 def logout_view(request):
@@ -187,7 +205,112 @@ def logout_view(request):
 
 @csrf_exempt
 def home(request):
-	return render(request, "index.html", {})
+	return render(request,"index.html", {})
+
+@csrf_exempt
+def eventregister(request):
+	if request.method == 'POST':
+		form = Eventregistertable(request.POST)
+		print(form.errors)
+		if form.is_valid():
+			if form.save():
+				return redirect('/eventtable',
+								messages.success(request, 'Event is successfully updated.', 'alert-success'))
+			else:
+				return redirect('/eventtable', messages.error(request, 'Event is not saved', 'alert-danger'))
+		else:
+			return redirect('/eventtable', messages.error(request, 'Event is not valid', 'alert-danger'))
+	else:
+		form = Eventregistertable()
+		return render(request,'event.html', {'form': form})
+
+@csrf_exempt
+def eventtable(request):
+     module=Webregister.objects.all().values()
+     return render(request,"eventtable.html",{'module':module})
+
+def link(request,module_id):
+    if request.method=='POST':
+        module=Webregister.objects.get(id=module_id)
+        id = form.cleaned_data.get('module_name')
+        streaming_link = form.cleaned_data.get('module_code')
+
+def registerlink(request, module_id):
+    module = Webregister.objects.get(id=module_id)
+    if request.POST:
+        form = Eventregistertable(request.POST, instance=module)
+        if form.is_valid():
+            if form.save():
+                return redirect('/eventregister', messages.success(request, 'Event is successfully updated.', 'alert-success'))
+            else:
+                return redirect('/eventregister', messages.error(request, 'Event is not saved', 'alert-danger'))
+        else:
+            return redirect('/eventregister', messages.error(request, 'Event is not valid', 'alert-danger'))
+    else:
+        form = Eventregistertable(instance=module)
+        return render(request, 'editevent.html', {'form':form})
+
+def editevent(request, module_id):
+    module = Webregister.objects.get(id=module_id)
+    if request.POST:
+        form = Eventregistertable(request.POST, instance=module)
+        if form.is_valid():
+            if form.save():
+                return redirect('/eventregister', messages.success(request, 'Event is successfully updated.', 'alert-success'))
+            else:
+                return redirect('/eventregister', messages.error(request, 'Event is not saved', 'alert-danger'))
+        else:
+            return redirect('/eventregister', messages.error(request, 'Event is not valid', 'alert-danger'))
+    else:
+        form = Eventregistertable(instance=module)
+        return render(request, 'editevent.html', {'form':form})
+
+def destroyevent(request, module_id):
+    module = Webregister.objects.get(id=module_id)
+    module.delete()
+    return redirect('/eventtable', messages.success(request, 'Module is successfully deleted.', 'alert-success'))
+
+# @csrf_exempt
+# def partner_visibility(request):
+#     if request.method == 'POST':
+#         form = eventvisible(request.POST)
+#         profileform = eventvisible(request.POST,request.FILES)
+#         if form.is_valid() and profileform.is_valid():
+#             user = form.save()
+#             profile = profileform.save(commit=False)
+#             profile.save()
+#             profile.user = user
+#
+#         if 'header_eventimage' in request.FILES:
+#
+#             profile.picture = request.FILES['header_eventimage']
+#             profile.save()
+#
+#             return redirect('/partner_visibility', messages.success(request, 'Profile Successfully Updated.', 'alert-success'))
+#         else:
+#             return redirect('/partner_visibility', messages.success(request, 'Profile sucessfully updated', 'alert-success'))
+#     else:
+#         form1 = eventvisible()
+#         form2 = eventvisible()
+#     return render(request,'partner_visbility.html', {'form1':form1, 'form2': form2})
+
+
+
+
+
+# @csrf_exempt
+# def partner_visibility(request):
+#     if request.method == 'POST':
+#         form = eventvisible(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('/partner_visibility',messages.success(request, 'Form submitted Succesfully.', 'alert-success'))
+#     else:
+#         form = eventvisible()
+#     return render(request, 'partner_visbility.html', {'form': form})
+
+
+
 
 
 

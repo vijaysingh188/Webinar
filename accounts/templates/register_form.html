@@ -1,0 +1,153 @@
+
+    {% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Health Perigon </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500,600,700,800,900" >
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mystyle.css' %}">
+    </head>
+    <body>
+
+
+
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/popper-1.16.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <header>
+        <div class="header">
+            <div class="container">
+                <div class="header-left-side">
+                    <div class="logo-holder"><img src="{% static 'images/logo.png' %}" class="logo" alt="Health Perigon"></div>
+                </div>
+                <div class="header-right-side">
+                    <div class="social-icons-holder">
+                        <a class="icon-style " href="#"><i class="fa fa-facebook icon" aria-hidden="true"></i></a>
+                        <a class="icon-style" href="#"><i class="fa fa-twitter icon" aria-hidden="true"></i></a>
+                        <a class="icon-style" href="#"><i class="fa fa-whatsapp icon" aria-hidden="true"></i></a>
+                        <a class="icon-style" href="#"><i class="fa fa-instagram icon" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="login-btn-holder"><a class="login-btn" href="{% url 'login_view' %}">Login</a></div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="Search-box-bg">
+                <div class="form-group header-search">
+                    <span class="fa fa-search Search-box-icon"></span>
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-md">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+                </button>
+                 <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+                    <div class=" navbar-nav">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link" href="#">About Us</a>
+                       <a class="nav-link active" href="">Register</a>
+
+
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- main-->
+      <body>
+
+   <form class="needs-validation" method="post" enctype="multipart/form-data">
+       {% csrf_token %}
+                            <div class="Contact-holder">
+                                <div class="row">
+                                    <div class="col-md-12 mb-4 text-center">
+                                        <div class="Register-form-title"> PROFILE REGISTERATION </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="color-white" for="">User <span class="red-color"> * </span> : </label>
+                                    </div>
+                                    <div class="col-md-10 mb-3">
+                                      <input type="text" name="user" id="user" class='form-control'>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="color-white" for="">Email Address <span class="red-color"> * </span> : </label>
+                                    </div>
+                                    <div class="col-md-10 mb-3">
+                                         <input type="text" name="email" id="email" class='form-control'>
+                                    </div>
+                                </div>
+                                   <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="color-white" for="">Password <span class="red-color"> * </span> : </label>
+                                    </div>
+                                    <div class="col-md-10 mb-3">
+                                         <input type="text" name="user" id="password" class='form-control'>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label class="color-white" for="">Confirm Password <span class="red-color"> * </span> : </label>
+                                    </div>
+                                    <div class="col-md-10 mb-3">
+                                        <input type="text" name="user" id="confirm_password" class='form-control'>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="Submit-btn-holder">
+                                        <button class="Submit-btn" name="" formmethod="post" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div {% if message.tags %} class="alert {{ message.tags }} text-center"{% endif %}>
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+
+
+
+                                    </div>
+                                </div>
+                            </form>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>
+
+
+

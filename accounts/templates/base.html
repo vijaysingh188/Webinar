@@ -42,15 +42,16 @@
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<div class=" navbar-nav">
 				    <a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Dashboard</a>
-					<a class="nav-link {% ifequal request.path '/existing_module_master/'%} active {% endifequal%}" href="{% url 'existing_module_master' %}">Subscription Master</a>
+					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Subscription Master</a>
 					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Subscriber Registry</a>
-					<a class="nav-link {% ifequal request.path '/pharmacy/'%} active {% endifequal%}" href="{% url 'pharmacy' %}">Pharmacy Master</a>
-					<a class="nav-link {% ifequal request.path '/laboratory'%} active {% endifequal%}" href="{% url 'laboratory' %}">Laboratory Master</a>
+					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Pharmacy Master</a>
+					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Laboratory Master</a>
 					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Recently Added</a>
 					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Reword Master</a>
 					<a class="nav-link {% ifequal request.path '#'%} active {% endifequal%}" href="#">Anncouncement </a>
-					<a class="nav-link {% ifequal request.path '/contact_master/'%} active {% endifequal%}" href="{% url 'contact_master' %}">Contact List </a>
+					<a class="nav-link {% ifequal request.path '/contact_master/'%} active {% endifequal%}" href="#">Contact List </a>
 					<a class="nav-link {% ifequal request.path '/eventregister/'%} active {% endifequal%}" href="{% url 'eventregister' %}">Event Registeration </a>
+					<a class="nav-link {% ifequal request.path '/partner_visibility/'%} active {% endifequal%}" href="{% url 'partner_visibility' %}">Partner Visibility </a>
 				</div>
 			</div>
 		</nav>

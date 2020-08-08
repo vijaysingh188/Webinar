@@ -1,39 +1,249 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 
-{% block title %} Subscription Master - Module Master {% endblock %}
-{% block content %}
+{% block title %} Visiblity {% endblock %}
+{% block body %}
+ <style>
+      .hide {
+        display: none;
+      }
+      .heading6{
+        text-align: center;
+        background-image: linear-gradient(to top, #d1232a5c, #f2f2f2, #d1232a5c);
+        border: 1px solid #a9a4a4;
+        color: #000;
+        box-shadow: 3px 6px 13px #888888;
+        border-radius: 30px;
+        padding: 9px 10px;
+        width: 40%;
+        margin-left: 30%;
+        margin-bottom: 2%;
 
-        <div class="aside">
-            <nav class="navbar navbar-expand-md">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav">
-                        <a class="nav-link" href="#">Dashboard</a>
-                        <a class="nav-link" href="#">Subscription Master</a>
-                        <a class="nav-link" href="#">Subscriber Registry</a>
-                        <a class="nav-link" href="#">Pharmacy Master</a>
-                        <a class="nav-link" href="#">Laboratory Master</a>
-                        <a class="nav-link" href="#">Recently Added</a>
-                        <a class="nav-link" href="#">Reword Master</a>
-                        <a class="nav-link" href="#">Anncouncement </a>
-                        <a class="nav-link active" href="#">Event Registration</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class="main">
+      }
+      .mins{
+        width:30%;
+        float:left;
+      }
+      .minsp{
+
+        float:left;
+        padding-top:2%;
+      }
+
+
+    </style>
+
+        <style>
+      .switch {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100px;
+    height: 30px;
+    padding: 3px;
+    margin: 0 10px 10px 0;
+    background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+    border-radius: 18px;
+    box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    box-sizing: content-box;
+}
+label {
+    font-weight: inherit;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+
+    line-height: normal;
+      -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+
+.switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label {
+    background: inherit;
+}
+.switch-input:checked ~ .switch-label {
+    background: #E1B42B;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.switch-left-right .switch-label {
+    overflow: hidden;
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+.switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    background: #eceeef;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+    box-sizing: content-box;
+}
+.switch-left-right .switch-input:checked ~ .switch-label:before {
+    opacity: 1;
+    left: 100px;
+}
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.switch-left-right .switch-label:before {
+   background-image: linear-gradient(to right, #d1232a, #e2abab) !important;
+    text-align: left;
+    padding-left: 80px!important;
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -12px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-label:before {
+    content: attr(data-off);
+    right: 11px;
+    color: #aaaaaa;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+span.switch-label:after {
+    content: attr(data-on);
+    left: 11px;
+    color: #FFFFFF;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    position: absolute;
+
+}
+
+.switch-label:before, .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    line-height: 1;
+    -webkit-transition: inherit;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    transition: inherit;
+    box-sizing: content-box;
+}
+
+.switch-left-right .switch-input:checked ~ .switch-label:after {
+    left: 0!important;
+    opacity: 1;
+    padding-left: 20px;
+}
+
+
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+
+.switch-left-right .switch-label:after {
+    text-align: left;
+    text-indent: 9px;
+    background-image: linear-gradient(to right, #61ff00, #f2f2f2) !important;
+    left: -100px!important;
+    opacity: 1;
+    width: 100%!important;
+
+}
+.switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+    width: 20px;
+    height: 20px;
+    top: 4px;
+  color: black;
+    font-size: 11px;
+  font-weight:bold;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 11px 0 0 0;
+    text-indent: -13px;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+}
+.switch-input:checked ~ .switch-handle {
+    left: 74px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.switch-label, .switch-handle {
+    transition: All 0.3s ease;
+    -webkit-transition: All 0.3s ease;
+    -moz-transition: All 0.3s ease;
+    -o-transition: All 0.3s ease;
+}
+
+.switch-handle {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+    background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+    border-radius: 100%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.switch-handle:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -6px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(to bottom, #eeeeee, #d1232a);
+    background-image: -webkit-linear-gradient(top, #eeeeee, #d1232a);
+    border-radius: 6px;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+}
+
+    </style>
+
+
+
+
+
+
+
+
+          <div class="main">
+              <div class="col-md-12">
+                <div class="content-holder">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div {% if message.tags %} class="alert {{ message.tags }} text-center"{% endif %}>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
             <div class="inner-navbar">
-                <div class="col-md-12">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active" href="Event_Registration_Master-Existing_Module_Master.html">Module Master</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Subscription_Master-Existing_Add-on_Services.html">Add-on Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="Subscription_Master-Existing_Subscription_Plan.html">Subscription Plan</a></li>
-                    </ul>
-                </div>
-            </div>
+
+
             <div class="col-md-12">
                 <div class="content-holder">
                     <div class="row">
@@ -44,225 +254,196 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form class="needs-validation">
-                                        <div class="row">
+                                    <form class="needs-validation" method="POST" id="formSubmit" enctype="multipart/form-data">
+                                      {% csrf_token %}
 
-                                       	 <div class="col-md-4 mb-3">
-                                                <label>Event Registration</label>
-                                                 <input type="radio" name="eventregistration"  onClick="show1();show3();er1();"  value="yes"> Yes
-        										 <input type="radio"  name="eventregistration" onclick="show2();show4();er2();" value="no"> No
-                                            </div>
+                            <div class="row">
+                              <div class="col-md-4">
+                                       <label>Event Registration</label>
+                                             <label class="switch switch-left-right">
+                                            <input id="on1" class="switch-input" type="checkbox" checked>
+                                           <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span>
+                                          </label>
 
-                                            <div class="col-md-4 mb-3">
-                                                <label>Streaming Link</label>
-                                                 <input type="radio" name="streaminglink"  onClick="show5();show7();show9();sl1();"  value="yes"> Yes
-        										 <input type="radio"  name="streaminglink" onclick="show6();show8();show10();sl2();" value="no"> No
-                                            </div>
-
-                                            <div class="col-md-4 mb-3">
-                                                <label>Ticker Content</label>
-                                                 <input type="radio" name="tickercontent"  onClick="show11();tc1();"  value="yes"> Yes
-        										 <input type="radio"  name="tickercontent" onclick="show12();tc2();" value="no"> No
-                                            </div>
+                              </div>
 
 
-                                             <!--event registration start-->
-                                             <div id="er" class="col-md-12 hide">
-                                             	<h6 class="heading6">Event Registration</h6>
-                                             </div>
-                                             <div id="div1" class="col-md-6  hide">
 
-                                                <label>Header<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum size of 1MB)</span></label>
-                                                <input type='file' onchange="readURL(this);" />
-                                                <hr>
+                                <div class="col-md-4">
+                                      <label>Streaming Link</label>
+                                             <label class="switch switch-left-right">
+                                            <input id="on2" class="switch-input" type="checkbox" checked>
+                                           <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span>
+                                          </label>
+
+                              </div>
+
+                                <div class="col-md-4">
+                                      <label>Ticker Content</label>
+                                             <label class="switch switch-left-right">
+                                            <input id="on3" class="switch-input" type="checkbox" checked>
+                                           <span class="switch-label" data-on="On" data-off="Off"></span> <span class="switch-handle"></span>
+                                          </label>
+
+                              </div>
+
+                            </div>
+
+                            <br><br>
+                             <div class="row eventregistration">
+                              <div class="col-md-12">
+                                    <h6 class="heading6">Event Registration</h6>
+                                 </div>
+                                 <div class="col-md-6">
+
+                                   <label>Header<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum size of 1MB)</span></label>
+
+                                         <input type='file' name="header_eventimages" class="form-control" id="header_eventimages" onchange="readURL(this);" />
+                                   <hr>
 
 
-                                            </div>
+                                 </div>
 
-                                             <div id="div2" class="col-md-6  hide">
+                                 <div class="col-md-6">
 
-                                                <label>Footer<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum 		size of 1MB)</span></label>
-                                                <input type='file' onchange="readURL(this);" />
-												 <hr>
+                                   <label>Footer<span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100 Pixel and maximum     size of 1MB)</span></label>
 
-                                            </div>
+                                       <input type='file' name="footer_eventimage"  class="form-control" id="footer_eventimage" onchange="readURL(this);" />
+                   <hr>
 
-                                           <!--event registration start-->
-                                            <div id="sl" class="col-md-12 hide">
-                                             	<h6 class="heading6">Streaming Link</h6>
-                                             </div>
-                                              <div id="div3" class="col-md-4  hide">
+                                 </div>
+                            </div>
 
-                                                <label>Streaming header<br><span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100
+                            <br><br>
+
+                            <div class="row streaminglink">
+                              <div class="col-md-12">
+                                   <h6 class="heading6">Streaming Link</h6>
+                                </div>
+                                <div class="col-md-4">
+
+                             <label>Streaming header<br><span style="font-size:11px;color:#cd2628"> (Upload an image of .png or .jpeg with 1000*100
 
 Pixel and maximum size of 1MB)</span></label>
-                                                <input type='file' onchange="readURL(this);" />
-												<hr>
+                                              <input type='file'name="{{ form.footer_eventimage}}"id="streaming_header" onchange="readURL(this);" />
 
-                                            </div>
+                <hr>
 
-                                             <div id="div4" class="col-md-4  hide">
+                               </div>
+
+                                <div class="col-md-4">
 
                                                 <label>Left Panel<br><span style="font-size:11px;color:#cd2628"> (Upload image of .png or .jpeg format with 700*200 Pixel and maximum size of 1MB)</span></label>
-                                                <input type='file' onchange="readURL(this);" />
-												<hr>
+                                              <input type='file' name=streaming_leftpanel id="streaming_leftpanel" onchange="readURL(this);" />
+                                              <hr>
+
+                               </div>
+
+                                <div class="col-md-4">
+
+                                 <label>Right Panel<br><span style="font-size:11px;color:#cd2628"> (Upload image of .png or .jpeg format with 700*200 Pixel and maximum size of 1MB)</span></label>
+                               <input type='file' name="streaming_rightpanel" id="streaming_rightpanel" onchange="readURL(this);" />
+                        <hr>
 
                                             </div>
+                            </div>
 
-                                            <div id="div5" class="col-md-4  hide">
+                            <br><br>
 
-                                                <label>Right Panel<br><span style="font-size:11px;color:#cd2628"> (Upload image of .png or .jpeg format with 700*200 Pixel and maximum size of 1MB)</span></label>
-                                                <input type='file' onchange="readURL(this);" />
-												<hr>
-
-                                            </div>
-
-                                            <!--streaming link end-->
-
-
-                                            <!--ticker content start-->
-                                            <div id="tc" class="col-md-12 hide">
-                                             	<h6 class="heading6">Ticker Content</h6>
-                                             </div>
-                                              <div id="div6" class="col-md-12  hide">
+                            <div class="row tickercontent">
+                              <div class="col-md-12">
+                                   <h6 class="heading6">Ticker Content</h6>
+                                </div>
+                                <div class="col-md-12">
 
 
-                                                <div class="row">
-                                                	<div class="col-md-6">
-                                                    <label>Ticker Content</label>
-                                                    <input type="text" class="form-control" id=""  value="" required />
-                                                    <marquee direction="left" height="20" width="100%" >(Type your text in a given textbox)</marquee>
-                                                    </div>
-                                                   <div class="col-md-6">
-                                                   <label>Frequency<span style="font-size:11px;color:#cd2628"> (Ticker scroll will appear during video streaming for a
+                                  <div class="row">
+                                  <div class="col-md-6">
+                                   <label>Ticker Content</label>
+                                       <input type="text" class=form-control name="ticker_content" id="ticker_content">
+                                    <marquee direction="left" height="20" width="100%" >(Type your text in a given textbox)</marquee>
+                                   </div>
+                                  <div class="col-md-6">
+                               <label>Frequency<span style="font-size:11px;color:#cd2628"> (Ticker scroll will appear during video streaming for a
 given frequency)</span></label>
-													<div class="row">
+              <div class="row">
 
-                                                        <div class="col-md-8">
-                                                        <p class="minsp">Repeat Every&nbsp;&nbsp;</p><input type="number" class="form-control mins" id="" value="" required /><p class="minsp">&nbsp;&nbsp;Minutes</p>
-                                                        </div>
+                            <div class="col-md-8">
+                            <p class="minsp">Repeat Every&nbsp;&nbsp;</p><input type="number" class="form-control mins" id="frequency_ticket" nam e=frequency_ticket value="" required /><p class="minsp">&nbsp;&nbsp;Minutes</p>
+                              </div>
 
-                                                    </div>
+                            </div>
 
-
-                                                    </div>
-
-
-												<hr>
-
-                                            </div>
+                        </div>
+                       <hr>
+           </div>
+                  </div>
+              </div>
 
 
 
-
-                                            <!--ticker content end-->
-
-                                        </div>
-
-
-
-
-
-
-
-
-                                            <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-12">
                                                 <div class="mybtn-holder">
                                                     <button class="mybtn" data-toggle="collapse" data-target="#demo">Cancel</button>
                                                     <button class="mybtn" type="submit">Add</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
+
+
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
- {% endblock %}
-    {% block javascript %}
+
+        {% endblock %}
+        {% block javascript %}
+        <script>
+    $(document).ready(function(){
+  $('#on1').on('change',function(){
+      if(this.checked){
+        $(".eventregistration").show();
+      }
+        else{
+          $(".eventregistration").hide();
+        }
+    });
+});
+
+    </script>
+
 
         <script>
-        function er2(){
-  document.getElementById('er').style.display ='none';
-}
-function er1(){
-  document.getElementById('er').style.display = 'block';
-}
-        </script>
+    $(document).ready(function(){
+  $('#on2').on('change',function(){
+      if(this.checked){
+        $(".streaminglink").show();
+      }
+        else{
+          $(".streaminglink").hide();
+        }
+    });
+});
 
-     	<script>
-        function show2(){
-  document.getElementById('div1').style.display ='none';
-}
-function show1(){
-  document.getElementById('div1').style.display = 'block';
-}
-        </script>
+    </script>
 
         <script>
-        function show4(){
-  document.getElementById('div2').style.display ='none';
-}
-function show3(){
-  document.getElementById('div2').style.display = 'block';
-}
-        </script>
+    $(document).ready(function(){
+  $('#on3').on('change',function(){
+      if(this.checked){
+        $(".tickercontent").show();
+      }
+        else{
+          $(".tickercontent").hide();
+        }
+    });
+});
 
-         <script>
-        function sl2(){
-  document.getElementById('sl').style.display ='none';
-}
-function sl1(){
-  document.getElementById('sl').style.display = 'block';
-}
-        </script>
-
-         <script>
-        function show6(){
-  document.getElementById('div3').style.display ='none';
-}
-function show5(){
-  document.getElementById('div3').style.display = 'block';
-}
-        </script>
-         <script>
-        function show8(){
-  document.getElementById('div4').style.display ='none';
-}
-function show7(){
-  document.getElementById('div4').style.display = 'block';
-}
-        </script>
-         <script>
-        function show10(){
-  document.getElementById('div5').style.display ='none';
-}
-function show9(){
-  document.getElementById('div5').style.display = 'block';
-}
-        </script>
-
-         <script>
-        function tc2(){
-  document.getElementById('tc').style.display ='none';
-}
-function tc1(){
-  document.getElementById('tc').style.display = 'block';
-}
-        </script>
-
-         <script>
-        function show12(){
-  document.getElementById('div6').style.display ='none';
-}
-function show11(){
-  document.getElementById('div6').style.display = 'block';
-}
-        </script>
-
+    </script>
 
 {% endblock %}
 
