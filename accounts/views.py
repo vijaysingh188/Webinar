@@ -18,7 +18,7 @@ import phonenumbers
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-
+# header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel'
 @csrf_exempt
 def partner_visibility(request):
 	if request.method == 'POST':
@@ -26,12 +26,21 @@ def partner_visibility(request):
 		print(form.errors)
 		if form.is_valid():
 			print("im here")
+			header_eventimage = form.cleaned_data.get('header_eventimage')
+
+			footer_eventimage = form.cleaned_data.get('footer_eventimage')
+			streaming_header= form.cleaned_data.get('streaming_header')
+			streaming_leftpanel = form.cleaned_data.get('streaming_leftpanel')
+			streaming_rightpanel = form.cleaned_data.get('streaming_rightpanel')
+
+
+
 			if form.save():
 				print("save")
 				return redirect('/partner_visibility',
-								messages.success(request, 'visibility is successfully updated.', 'alert-success'))
+								messages.success(request, 'visibility is successfully submitted.', 'alert-success'))
 			else:
-				return redirect('/partner_visibility', messages.error(request, 'visibilityis not saved', 'alert-danger'))
+				return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
 		else:
 			return redirect('/partner_visibility', messages.error(request, 'visibilityis not valid', 'alert-danger'))
 	else:

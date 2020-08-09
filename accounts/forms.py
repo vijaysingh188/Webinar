@@ -13,6 +13,7 @@ from accounts.validators import validate_password_digit, validate_password_upper
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ValidationError
+import os
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -30,16 +31,110 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class EventregisteruserForm(ModelForm):
-    header_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
+    # def __init__(self, *args, **kwargs):
+    #     # first call parent's constructor
+    #     super(EventregisteruserForm, self).__init__(*args, **kwargs)
+    #     # there's a `fields` property now
+    #     self.fields['ticker_content'].required = False
+    #     self.fields['ticker_time'].required = False
+
+    header_eventimage = forms.ImageField(widget=forms.FileInput, required=False)        #,validators=[header_eventimage]
     footer_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_header = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_rightpanel = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_leftpanel = forms.ImageField(widget=forms.FileInput, required=False)
-    ticker_content = forms.CharField(required=False)
-    ticker_time = forms.IntegerField(required=False)
+    ticker_content = forms.CharField(widget=forms.TextInput(attrs={'required':'false'}))
+    # ticker_content = forms.CharField(required=False)
+    # ticker_time = forms.IntegerField(required=False)
+    ticker_time = forms.IntegerField(widget=forms.NumberInput(attrs={'required':'false'}))
+
     class Meta:
         model = Eventregisterationuser
         fields = ['header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel','ticker_content','ticker_time']
+
+    # (Upload an image of.png or.jpeg with 1000 * 100 Pixel and maximum size of 1MB)
+
+    def clean_header_eventimage(self,*args,**kwargs):
+        cleaned_data = super(EventregisteruserForm, self).clean()
+        header_eventimage = cleaned_data.get("header_eventimage")
+        check_file_extenstion = header_eventimage.name
+        check = check_file_extenstion.split('.')[1]
+        print(check, 'check')
+        types = ['jpg', 'png', 'jpeg','PNG']
+        if check not in types:
+            raise forms.ValidationError("file format is wrong.")
+        if header_eventimage:
+            if header_eventimage.size > 1000 * 100:
+                print("reached froms.py")
+                raise forms.ValidationError("File is too big.")
+
+        return header_eventimage
+
+    def clean_footer_eventimagee(self, *args, **kwargs):
+        cleaned_data = super(EventregisteruserForm, self).clean()
+        footer_eventimage = cleaned_data.get("footer_eventimage")
+        check_file_extenstion = footer_eventimage.name
+        check = check_file_extenstion.split('.')[1]
+        print(check, 'check')
+        types = ['jpg', 'png', 'jpeg', 'PNG']
+        if check not in types:
+            raise forms.ValidationError("file format is wrong.")
+        if footer_eventimage:
+            if footer_eventimage.size > 1000 * 100:
+                print("reached froms.py")
+                raise forms.ValidationError("File is too big.")
+
+        return footer_eventimage
+
+    def clean_streaming_rightpanel(self, *args, **kwargs):
+        cleaned_data = super(EventregisteruserForm, self).clean()
+        streaming_rightpanel = cleaned_data.get("streaming_rightpanel")
+        # check_file_extenstion = streaming_rightpanel.name
+        # check = check_file_extenstion.split('.')[1]
+        # print(check, 'check')
+        # types = ['jpg', 'png', 'jpeg', 'PNG']
+        # if check not in types:
+        #     raise forms.ValidationError("file format is wrong.")
+        if streaming_rightpanel:
+            if streaming_rightpanel.size > 1000 * 100:
+                print("reached froms.py")
+                raise forms.ValidationError("File is too big.")
+
+        return streaming_rightpanel
+
+
+
+    def clean_streaming_rightpanel(self, *args, **kwargs):
+        cleaned_data = super(EventregisteruserForm, self).clean()
+        streaming_rightpanel = cleaned_data.get("streaming_rightpanel")
+        # check_file_extenstion = streaming_rightpanel.name
+        # check = check_file_extenstion.split('.')[1]
+        # print(check, 'check')
+        # types = ['jpg', 'png', 'jpeg', 'PNG']
+        # if check not in types:
+        #     raise forms.ValidationError("file format is wrong.")
+        if streaming_rightpanel:
+            if streaming_rightpanel.size > 1000 * 100:
+                print("reached froms.py")
+                raise forms.ValidationError("File is too big.")
+
+        return streaming_rightpanel
+
+    def clean_streaming_leftpanel(self, *args, **kwargs):
+        cleaned_data = super(EventregisteruserForm, self).clean()
+        streaming_leftpanel = cleaned_data.get("streaming_leftpanel")
+        # check_file_extenstion = streaming_leftpanel.name
+        # check = check_file_extenstion.split('.')[1]
+        # print(check, 'check')
+        # types = ['jpg', 'png', 'jpeg', 'PNG']
+        # if check not in types:
+        #     raise forms.ValidationError("file format is wrong.")
+        if streaming_leftpanel:
+            if streaming_leftpanel.size > 1000 * 100:
+                print("reached froms.py")
+                raise forms.ValidationError("File is too big.")
+
+        return streaming_leftpanel
 
 
 
@@ -164,12 +259,3 @@ class Eventregistertable(forms.ModelForm):
     #     fields = ['header_eventimage', 'footer_eventimage', 'streaming_header', 'streaming_rightpanel',
     #               'streaming_leftpanel', 'ticker_content', 'ticker_time']
 
-        # def clean_header_eventimage(self, *args, **kwargs):
-        #     cleaned_data = super(eventvisible, self).clean()
-        #     header_eventimage = cleaned_data.get("header_eventimage")
-        #     if header_eventimage:
-        #         if header_eventimage.size > 5 * 1024 * 1024:
-        #             raise forms.ValidationError("File is too big.")
-        #         if not header_eventimage.suffix.strip().lower() in ['.jpg', '.png', '.gif', '.jpeg']:
-        #             raise forms.ValidationError("File does not look like as picture.")
-        #     return header_eventimage
