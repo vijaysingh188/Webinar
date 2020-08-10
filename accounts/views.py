@@ -22,14 +22,16 @@ User = get_user_model()
 @csrf_exempt
 def partner_visibility(request):
 	if request.method == 'POST':
+		# form = EventregisteruserForm(use_required_attribute=False)
 		form = EventregisteruserForm(request.POST, request.FILES)
 		print(form.errors)
+
 		if form.is_valid():
 			print("im here")
 			header_eventimage = form.cleaned_data.get('header_eventimage')
 
 			footer_eventimage = form.cleaned_data.get('footer_eventimage')
-			streaming_header= form.cleaned_data.get('streaming_header')
+			streaming_header = form.cleaned_data.get('streaming_header')
 			streaming_leftpanel = form.cleaned_data.get('streaming_leftpanel')
 			streaming_rightpanel = form.cleaned_data.get('streaming_rightpanel')
 

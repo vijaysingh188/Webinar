@@ -31,28 +31,29 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class EventregisteruserForm(ModelForm):
-    # def __init__(self, *args, **kwargs):
-    #     # first call parent's constructor
-    #     super(EventregisteruserForm, self).__init__(*args, **kwargs)
-    #     # there's a `fields` property now
-    #     self.fields['ticker_content'].required = False
-    #     self.fields['ticker_time'].required = False
+    use_required_attribute = False
+    def __init__(self, *args, **kwargs):
+        # first call parent's constructor
+        super(EventregisteruserForm, self).__init__(*args, **kwargs)
+        # there's a `fields` property now
+        self.fields['ticker_content'].required = False
+        self.fields['ticker_time'].required = False
 
     header_eventimage = forms.ImageField(widget=forms.FileInput, required=False)        #,validators=[header_eventimage]
     footer_eventimage = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_header = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_rightpanel = forms.ImageField(widget=forms.FileInput, required=False)
     streaming_leftpanel = forms.ImageField(widget=forms.FileInput, required=False)
-    ticker_content = forms.CharField(widget=forms.TextInput(attrs={'required':'false'}))
-    # ticker_content = forms.CharField(required=False)
-    # ticker_time = forms.IntegerField(required=False)
-    ticker_time = forms.IntegerField(widget=forms.NumberInput(attrs={'required':'false'}))
+    # ticker_content = forms.CharField(widget=forms.TextInput(attrs={'required':'false'}))
+    ticker_content = forms.CharField(required=False)
+    ticker_time = forms.IntegerField(required=False)
+    # ticker_time = forms.IntegerField(widget=forms.NumberInput(attrs={'required':'false'}))
 
     class Meta:
         model = Eventregisterationuser
         fields = ['header_eventimage','footer_eventimage','streaming_header','streaming_leftpanel','streaming_rightpanel','ticker_content','ticker_time']
 
-    # (Upload an image of.png or.jpeg with 1000 * 100 Pixel and maximum size of 1MB)
+
 
     def clean_header_eventimage(self,*args,**kwargs):
         cleaned_data = super(EventregisteruserForm, self).clean()
@@ -64,8 +65,8 @@ class EventregisteruserForm(ModelForm):
         if check not in types:
             raise forms.ValidationError("file format is wrong.")
         if header_eventimage:
-            if header_eventimage.size > 1000 * 100:
-                print("reached froms.py")
+            if header_eventimage.size > 1000 * 100:            #41937
+                print("header_eventimage.size",header_eventimage.size)
                 raise forms.ValidationError("File is too big.")
 
         return header_eventimage
@@ -86,21 +87,21 @@ class EventregisteruserForm(ModelForm):
 
         return footer_eventimage
 
-    def clean_streaming_rightpanel(self, *args, **kwargs):
+    def clean_streaming_header(self, *args, **kwargs):
         cleaned_data = super(EventregisteruserForm, self).clean()
-        streaming_rightpanel = cleaned_data.get("streaming_rightpanel")
-        # check_file_extenstion = streaming_rightpanel.name
+        streaming_header = cleaned_data.get("streaming_header")
+        # check_file_extenstion = streaming_header.name
         # check = check_file_extenstion.split('.')[1]
         # print(check, 'check')
         # types = ['jpg', 'png', 'jpeg', 'PNG']
         # if check not in types:
         #     raise forms.ValidationError("file format is wrong.")
-        if streaming_rightpanel:
-            if streaming_rightpanel.size > 1000 * 100:
+        if streaming_header:
+            if streaming_header.size > 1000 * 100:
                 print("reached froms.py")
                 raise forms.ValidationError("File is too big.")
 
-        return streaming_rightpanel
+        return streaming_header
 
 
 
