@@ -36,6 +36,61 @@ def partner_visibility(request):
 			streaming_rightpanel = form.cleaned_data.get('streaming_rightpanel')
 
 
+			types = ['.jpg', '.png', '.jpeg','.PNG']
+
+			import pathlib
+			a = pathlib.Path(str(header_eventimage)).suffix
+
+			if a not in types:
+				return redirect('/partner_visibility',
+								messages.error(request, 'Please upload only png', 'alert-danger'))
+
+			if header_eventimage:
+				if header_eventimage.size > 1000 * 100:  # 41937
+					# print("header_eventimage.size", header_eventimage.size)
+					return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+
+			b = pathlib.Path(str(header_eventimage)).suffix
+			if b not in types:
+				return redirect('/partner_visibility',
+								messages.error(request, 'Please upload only png', 'alert-danger'))
+			if footer_eventimage:
+				if footer_eventimage.size > 1000 * 1000:  # 41937
+					# print("header_eventimage.size", footer_eventimage.size)
+					return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+
+
+			c = pathlib.Path(str(header_eventimage)).suffix
+			if c not in types:
+				return redirect('/partner_visibility',
+								messages.error(request, 'Please upload only png', 'alert-danger'))
+			if streaming_header:
+				if streaming_header.size > 1000 * 100:  # 41937
+					# print("header_eventimage.size", streaming_header.size)
+					return redirect('/partner_visibility',
+									messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+
+
+			d = pathlib.Path(str(header_eventimage)).suffix
+			if d not in types:
+				return redirect('/partner_visibility',
+								messages.error(request, 'Please upload only png', 'alert-danger'))
+			if streaming_leftpanel:
+				if streaming_leftpanel.size > 700 * 200:  # 41937
+					# print("header_eventimage.size", streaming_leftpanel.size)
+					return redirect('/partner_visibility',
+									messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+
+			e = pathlib.Path(str(header_eventimage)).suffix
+			if e not in types:
+				return redirect('/partner_visibility',
+								messages.error(request, 'Please upload only png', 'alert-danger'))
+			if streaming_rightpanel:
+				if header_eventimage.size > 700 * 200:  # 41937
+					# print("header_eventimage.size", streaming_rightpanel.size)
+					return redirect('/partner_visibility',
+									messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+
 
 			if form.save():
 				print("save")

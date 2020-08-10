@@ -39,11 +39,11 @@ class CustomUser(AbstractUser):
 
 
 class Eventregisterationuser(models.Model):
-    header_eventimage = models.ImageField(upload_to='images',null=True, blank=True)            #header_eventimage = models.ImageField(upload_to='images',null=True,blank=True,validators=[FileExtensionValidator(allowed_extensions=['jpeg'])])
-    footer_eventimage = models.ImageField(upload_to='images',null=True, blank=True)
-    streaming_header = models.ImageField(upload_to='images',null=True, blank=True)
-    streaming_leftpanel = models.ImageField(upload_to='images',null=True, blank=True)
-    streaming_rightpanel = models.ImageField(upload_to='images',null=True, blank=True)
+    header_eventimage = models.FileField(upload_to='images',null=True, blank=True)            #header_eventimage = models.ImageField(upload_to='images',null=True,blank=True,validators=[FileExtensionValidator(allowed_extensions=['jpeg'])])
+    footer_eventimage = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_header = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_leftpanel = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_rightpanel = models.FileField(upload_to='images',null=True, blank=True)
     ticker_content = models.CharField(null=True, blank=True,max_length=255)
     ticker_time = models.IntegerField(null=True, blank=True)
 
