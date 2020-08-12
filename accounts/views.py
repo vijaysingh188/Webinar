@@ -48,7 +48,7 @@ def partner_visibility(request):
 				if header_eventimage:
 					if header_eventimage.size > 1000 * 100:  # 41937
 						# print("header_eventimage.size", header_eventimage.size)
-						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for header_eventimage', 'alert-danger'))
 
 			if footer_eventimage:
 				b = pathlib.Path(str(footer_eventimage)).suffix
@@ -60,7 +60,7 @@ def partner_visibility(request):
 				if footer_eventimage:
 					if footer_eventimage.size > 1000 * 100:  # 41937
 						# print("header_eventimage.size", header_eventimage.size)
-						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for footer_eventimage ', 'alert-danger'))
 
 			if streaming_header:
 				c = pathlib.Path(str(streaming_header)).suffix
@@ -72,30 +72,30 @@ def partner_visibility(request):
 				if streaming_header:
 					if streaming_header.size > 1000 * 100:  # 41937
 						# print("header_eventimage.size", header_eventimage.size)
-						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_header', 'alert-danger'))
 
 			if streaming_leftpanel:
-				c = pathlib.Path(str(streaming_leftpanel)).suffix
+				d = pathlib.Path(str(streaming_leftpanel)).suffix
 
-				if c not in types:
+				if d not in types:
 					return redirect('/partner_visibility',
 									messages.error(request, 'Please proper format for streaming_leftpanel', 'alert-danger'))
 
 				if streaming_leftpanel:
 					if streaming_leftpanel.size > 700 * 200:  # 41937
 						# print("header_eventimage.size", header_eventimage.size)
-						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_leftpanel', 'alert-danger'))
 			if streaming_rightpanel:
-				c = pathlib.Path(str(streaming_rightpanel)).suffix
+				e = pathlib.Path(str(streaming_rightpanel)).suffix
 
-				if c not in types:
+				if e not in types:
 					return redirect('/partner_visibility',
 									messages.error(request, 'Please proper format for streaming_leftpanel', 'alert-danger'))
 
 				if streaming_rightpanel:
 					if streaming_rightpanel.size > 700 * 200:  # 41937
 						# print("header_eventimage.size", header_eventimage.size)
-						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_rightpanel', 'alert-danger'))
 
 
 
@@ -111,6 +111,87 @@ def partner_visibility(request):
 	else:
 		form = EventregisteruserForm()
 		return render(request, 'partner_visbility.html', {'form': form})
+
+@csrf_exempt
+def eventregister(request):
+	if request.method == 'POST':
+		form = Eventregistertable(request.POST)
+		# form1 = EventregisteruserForm(request.POST, request.FILES)
+		print(form.errors)
+		if form.is_valid():
+			if form.save():
+				return redirect('/eventtable',
+								messages.success(request, 'Event is successfully updated.', 'alert-success'))
+			else:
+				return redirect('/eventtable', messages.error(request, 'Event is not saved', 'alert-danger'))
+		else:
+			return redirect('/eventtable', messages.error(request, 'Event is not valid', 'alert-danger'))
+	else:
+		form = Eventregistertable()
+		return render(request,'event.html', {'form': form})
+
+
+
+@csrf_exempt
+def partner_and_event_register(request):
+	if request.method == "POST" and request.is_ajax():
+
+		eventtitle = request.POST.get('eventtitle')
+		targetaudiance = request.POST.get('targetaudiance')
+		print(targetaudiance,'targetaudiance')
+		eventtype = request.POST.get('eventtype')
+
+		created_on = request.POST.get('created_on')
+		print(created_on,'created_on')
+		Chairpersons = request.POST.get('Chairpersons')
+		mobilenumber = request.POST.get('mobilenumber')
+
+		email = request.POST.get('email')
+		Moderatorname = request.POST.get('Moderatorname')
+		mmobile = request.POST.get('mmobile')
+
+		memail = request.POST.get('memail')
+		ContactPersonanme = request.POST.get('ContactPersonanme')
+		Cmobile = request.POST.get('Cmobile')
+
+		Cemail = request.POST.get('Cemail')
+		organisedby = request.POST.get('organisedby')
+		sponserby = request.POST.get('sponserby')
+
+		print(eventtitle,'eventtitle')
+		form = Eventregistertable(request.POST)
+		print("before valiadtion")
+
+		if form.is_valid():
+			print("after")
+			form.save(commit=True)
+
+	return JsonResponse({"success": True}, status=200)
+
+
+
+
+
+
+
+
+# @csrf_exempt
+# def eventregister(request):
+# 	if request.method == 'POST':
+# 		form = Eventregistertable(request.POST)
+# 		# vis_form = EventregisteruserForm(request.POST, request.FILES)
+# 		print(form.errors)
+# 		if form.is_valid():
+# 			if form.save():
+# 				return redirect('/eventtable',
+# 								messages.success(request, 'Event is successfully updated.', 'alert-success'))
+# 			else:
+# 				return redirect('/eventtable', messages.error(request, 'Event is not saved', 'alert-danger'))
+# 		else:
+# 			return redirect('/eventtable', messages.error(request, 'Event is not valid', 'alert-danger'))
+# 	else:
+# 		form = Eventregistertable()
+# 		return render(request,'event.html', {'form': form})
 
 @csrf_exempt
 def contact(request):
@@ -257,22 +338,7 @@ def logout_view(request):
 def home(request):
 	return render(request,"index.html", {})
 
-@csrf_exempt
-def eventregister(request):
-	if request.method == 'POST':
-		form = Eventregistertable(request.POST)
-		print(form.errors)
-		if form.is_valid():
-			if form.save():
-				return redirect('/eventtable',
-								messages.success(request, 'Event is successfully updated.', 'alert-success'))
-			else:
-				return redirect('/eventtable', messages.error(request, 'Event is not saved', 'alert-danger'))
-		else:
-			return redirect('/eventtable', messages.error(request, 'Event is not valid', 'alert-danger'))
-	else:
-		form = Eventregistertable()
-		return render(request,'event.html', {'form': form})
+
 
 @csrf_exempt
 def eventtable(request):
@@ -319,51 +385,5 @@ def destroyevent(request, module_id):
     module = Webregister.objects.get(id=module_id)
     module.delete()
     return redirect('/eventtable', messages.success(request, 'Module is successfully deleted.', 'alert-success'))
-
-# @csrf_exempt
-# def partner_visibility(request):
-#     if request.method == 'POST':
-#         form = eventvisible(request.POST)
-#         profileform = eventvisible(request.POST,request.FILES)
-#         if form.is_valid() and profileform.is_valid():
-#             user = form.save()
-#             profile = profileform.save(commit=False)
-#             profile.save()
-#             profile.user = user
-#
-#         if 'header_eventimage' in request.FILES:
-#
-#             profile.picture = request.FILES['header_eventimage']
-#             profile.save()
-#
-#             return redirect('/partner_visibility', messages.success(request, 'Profile Successfully Updated.', 'alert-success'))
-#         else:
-#             return redirect('/partner_visibility', messages.success(request, 'Profile sucessfully updated', 'alert-success'))
-#     else:
-#         form1 = eventvisible()
-#         form2 = eventvisible()
-#     return render(request,'partner_visbility.html', {'form1':form1, 'form2': form2})
-
-
-
-
-
-# @csrf_exempt
-# def partner_visibility(request):
-#     if request.method == 'POST':
-#         form = eventvisible(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('/partner_visibility',messages.success(request, 'Form submitted Succesfully.', 'alert-success'))
-#     else:
-#         form = eventvisible()
-#     return render(request, 'partner_visbility.html', {'form': form})
-
-
-
-
-
-
-
 
 

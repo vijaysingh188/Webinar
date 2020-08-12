@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings #register_form
-from accounts.views import home,registerlink,partner_visibility,eventregister,eventtable,editevent,destroyevent, login_view, logout_view, contact, password_reset, contact_master, change_password, send_otp, verify_otp #existing_module_master, create_module_master, edit_module_master, destroy_module_master,addservice,addonservice,pharmacy,pharmacytable,lob,destroypharamcy,labotable,destroylaboratory,destroyemptytext,edit_laboratorytable,edit_service,edit_pharmacy,edit_labotable,laboratory
+from accounts.views import partner_and_event_register,home,registerlink,partner_visibility,eventregister,eventtable,editevent,destroyevent, login_view, logout_view, contact, password_reset, contact_master, change_password, send_otp, verify_otp #existing_module_master, create_module_master, edit_module_master, destroy_module_master,addservice,addonservice,pharmacy,pharmacytable,lob,destroypharamcy,labotable,destroylaboratory,destroyemptytext,edit_laboratorytable,edit_service,edit_pharmacy,edit_labotable,laboratory
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home, name="home"),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('eventregister/',eventregister,name="eventregister"),
     path('eventtable/',eventtable,name="eventtable"),
     path('registerlink/<int:module_id>',registerlink,name="registerlink"),
+    path('partner_and_event_register/',partner_and_event_register,name="partner_and_event_register"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

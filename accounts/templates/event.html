@@ -125,6 +125,7 @@
                                             <div class="col-md-4 mb-3">
                                                 <label>Registration Required</label>
                                                  {{ form.Registerationrequired }}
+                                                <!--  <label for="{{ choice.id_for_label  }}">{{ choice.choice_label }}</label>-->
 
                                             </div>
 
@@ -173,5 +174,193 @@
   });
 });
   </script>
+
+
+<script>
+    $(document).ready(function(){
+    let formData = {
+                    eventtitle:"",
+                    targetaudiance:"",
+                    eventtype:"",
+
+                    datetime_from:"",
+                    Chairpersons:"",
+                    mobilenumber :"",
+
+                    email:"",
+                    Moderatorname:"",
+                    mmobile:"",
+
+                    memail:"",
+                    ContactPersonanme:"",
+                    Cmobile:"",
+
+                    Cemail:"",
+                    organisedby:"",
+                    sponserby:"",
+
+                    }
+
+
+        $("#id_eventtitle").on('change', function() {
+                    var eventtitle = $(this).val();
+
+                formData.eventtitle = $("#id_eventtitle").val();
+                });
+
+
+        $("#id_targetaudiance").on('change', function() {
+                var targetaudiance = $(this).val();
+
+            formData.targetaudiance = $('#id_targetaudiance').find(":selected").val();
+            alert(formData.targetaudiance);
+
+            });
+
+        $("#id_eventtype").on('change', function() {
+                var eventtype = $(this).val();
+
+            formData.eventtype = $('#id_eventtype').find(":selected").val();
+            });
+
+
+
+        $("#datetime_from").on('change', function() {
+            var datetime_from = $(this).val();
+
+        formData.datetime_from = $("#datetime_from").val();
+        });
+
+
+
+<!--        $("#datepicker_from").datepicker({-->
+<!--        altFormat: "yy-mm-dd",-->
+<!--        "onSelect": function(date) {-->
+<!--            $("#datepicker_from").datepicker(datepicker_from);-->
+<!--            alert();-->
+
+<!--            formData.datetime_from = $("#datetime_from").val();-->
+<!--        }-->
+<!--    });-->
+
+
+        $("#id_Chairpersons").on('change', function() {
+            var Chairpersons = $(this).val();
+
+        formData.Chairpersons = $("#id_Chairpersons").val();
+        });
+
+
+        $("#id_mobilenumber").on('change', function() {
+            var mobilenumber = $(this).val();
+
+        formData.mobilenumber = $("#id_mobilenumber").val();
+        });
+
+
+        $("#id_email").on('change', function() {
+                var email = $(this).val();
+
+            formData.email = $("#id_email").val();
+            });
+
+        $("#id_Moderatorname").on('change', function() {
+                var Moderatorname = $(this).val();
+
+            formData.Moderatorname = $("#id_Moderatorname").val();
+            });
+
+        $("#id_mmobile").on('change', function() {
+                var mmobile= $(this).val();
+
+            formData.mmobile = $("#id_mmobile").val();
+            });
+
+
+
+        $("#id_memail").on('change', function() {
+                var memail = $(this).val();
+
+            formData.memail = $("#id_memail").val();
+            });
+
+        $("#id_ContactPersonanme").on('change', function() {
+                var ContactPersonanme = $(this).val();
+
+            formData.ContactPersonanme = $("#id_ContactPersonanme").val();
+            });
+
+        $("#id_Cmobile").on('change', function() {
+                var Cmobile = $(this).val();
+
+            formData.Cmobile = $("#id_Cmobile").val();
+            });
+
+
+
+        $("#id_Cemail").on('change', function() {
+            var Cemail = $(this).val();
+
+        formData.Cemail = $("#id_Cemail").val();
+        });
+
+        $("#id_organisedby").on('change', function() {
+            var organisedby = $(this).val();
+
+        formData.organisedby = $("#id_organisedby").val();
+        });
+
+
+        $("#id_sponserby").on('change', function() {
+            var sponserby = $(this).val();
+
+        formData.sponserby = $("#id_sponserby").val();
+        });
+
+
+        $("input[name='partnerrequired']").click(function(){
+            var radioValue = $("input[name='partnerrequired']:checked").val();
+                if(radioValue=='Yes'){
+<!--                alert("Your are a - " + radioValue);-->
+                console.log(formData)
+<!--                alert(formData.eventtitle);-->
+
+
+
+                   $.ajax({
+                    type: "POST",
+                    url:  "/partner_and_event_register/",
+                    data:{
+                    'eventtitle':formData.eventtitle,
+                    'targetaudiance':formData.targetaudiance,
+                    'eventtype':formData.eventtype,
+                    'created_on':formData.datetime_from,
+                    'Chairpersons':formData.Chairpersons,
+                    'mobilenumber':formData.mobilenumber,
+                    'email':formData.email,
+                    'Moderatorname':formData.Moderatorname,
+                    'mmobile':formData.mmobile,
+                    'memail':formData.memail,
+                    'ContactPersonanme':formData.ContactPersonanme,
+                    'Cmobile':formData.Cmobile,
+                    'Cemail':formData.Cemail,
+                    'organisedby':formData.organisedby,
+                    'sponserby':formData.sponserby,
+                    'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+                     },
+                   success: function(response){
+
+<!--                         window.open("/partner_visibility/");-->
+                         alert("done till here");
+                     }
+                });
+
+
+            }
+
+
+        });
+    });
+</script>
 
     {% endblock %}

@@ -200,17 +200,18 @@ class PasswordVerificationForm(forms.Form):
 
 class Eventregistertable(forms.ModelForm):
     eventtitle = forms.CharField(widget=forms.TextInput(attrs={}))
-    doctor_options = (
+    TARGET_OPTION = (
         ('HDC', 'HDC'),
         ('Individual', 'Individual'),
         ('Both', 'Both')
     )
-    targetaudiance = forms.ChoiceField(choices=doctor_options)
-    doctor_options = (
+    targetaudiance = forms.ChoiceField(choices=TARGET_OPTION)
+
+    EVENT_OPTION = (
         ('Webinar', 'webinar'),
         ('Conference', 'Conference'),
     )
-    eventtype = forms.ChoiceField(choices=doctor_options)
+    eventtype = forms.ChoiceField(choices=EVENT_OPTION)
     created_on = forms.DateField(widget=forms.DateInput(attrs={'id': 'datetime_from'}, format='%d/%m/%Y'),
                                  input_formats=settings.DATE_INPUT_FORMATS)
     Chairpersons = forms.CharField(required=False)

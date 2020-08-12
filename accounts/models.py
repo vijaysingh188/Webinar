@@ -38,17 +38,7 @@ class CustomUser(AbstractUser):
 
 
 
-class Eventregisterationuser(models.Model):
-    header_eventimage = models.FileField(upload_to='images',null=True, blank=True)            #header_eventimage = models.ImageField(upload_to='images',null=True,blank=True,validators=[FileExtensionValidator(allowed_extensions=['jpeg'])])
-    footer_eventimage = models.FileField(upload_to='images',null=True, blank=True)
-    streaming_header = models.FileField(upload_to='images',null=True, blank=True)
-    streaming_leftpanel = models.FileField(upload_to='images',null=True, blank=True)
-    streaming_rightpanel = models.FileField(upload_to='images',null=True, blank=True)
-    ticker_content = models.CharField(null=True, blank=True,max_length=255)
-    ticker_time = models.IntegerField(null=True, blank=True)
 
-    def __str__(self):
-        return str(self.pk)
 
 class Webregister(models.Model):
     eventtitle = models.CharField(max_length=255)
@@ -68,6 +58,7 @@ class Webregister(models.Model):
     organizedby = models.CharField(max_length=255)
     sponserby = models.CharField(max_length=255, blank=True)
     Registerationrequired = models.CharField(max_length=266)
+    # registerationrequired = models.CharField(choices=REGISTER_CHOICES, max_length=128)
     paymentrequired = models.CharField(max_length=255, blank=True)
     partnerrequired = models.CharField(max_length=255)
     creation_link = models.URLField(max_length=255,null=True,blank=True)
@@ -77,7 +68,18 @@ class Webregister(models.Model):
     def __str__(self):
         return self.eventtitle
 
+class Eventregisterationuser(models.Model):
+    webregister = models.ForeignKey(Webregister,on_delete=models.CASCADE)
+    header_eventimage = models.FileField(upload_to='images',null=True, blank=True)            #header_eventimage = models.ImageField(upload_to='images',null=True,blank=True,validators=[FileExtensionValidator(allowed_extensions=['jpeg'])])
+    footer_eventimage = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_header = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_leftpanel = models.FileField(upload_to='images',null=True, blank=True)
+    streaming_rightpanel = models.FileField(upload_to='images',null=True, blank=True)
+    ticker_content = models.CharField(null=True, blank=True,max_length=255)
+    ticker_time = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return str(self.pk)
 
 class SecurityQuestions(models.Model):
     question = models.CharField(max_length=255, blank=True)
