@@ -334,9 +334,13 @@ def logout_view(request):
 	logout(request)
 	return redirect('/')
 
-@csrf_exempt
 def home(request):
-	return render(request,"index.html", {})
+	events = Webregister.objects.all()
+	context={
+		'events':events
+	}
+
+	return render(request,"index.html",context)
 
 
 
@@ -345,11 +349,11 @@ def eventtable(request):
      module=Webregister.objects.all().values()
      return render(request,"eventtable.html",{'module':module})
 
-def link(request,module_id):
-    if request.method=='POST':
-        module=Webregister.objects.get(id=module_id)
-        id = form.cleaned_data.get('module_name')
-        streaming_link = form.cleaned_data.get('module_code')
+# def link(request,module_id):
+#     if request.method=='POST':
+#         module=Webregister.objects.get(id=module_id)
+#         id = form.cleaned_data.get('module_name')
+#         streaming_link = form.cleaned_data.get('module_code')
 
 def registerlink(request, module_id):
     module = Webregister.objects.get(id=module_id)
@@ -386,4 +390,115 @@ def destroyevent(request, module_id):
     module.delete()
     return redirect('/eventtable', messages.success(request, 'Module is successfully deleted.', 'alert-success'))
 
-
+# @csrf_exempt
+# def partner_visibility(request):
+# 	if request.method == 'POST':
+# 		print(request.POST,"request.POST")
+# 		if 'footer_eventimage' not in request.POST:
+# 			mail_id = request.POST['email']
+# 			# print(mail_id,'mail_id')
+# 			form1 = Eventregistertable(request.POST)
+# 			# print(form1.data,"form1")
+# 			# print(form1.errors,'form1')
+# 			if form1.is_valid():
+# 				# print(form1.errors,'errors')
+# 				form1.save()
+# 				print("vbsvbsbvbsb")
+#
+# 			aa = Webregister.objects.get(email=mail_id)
+# 			obj = Eventregisterationuser.objects.create(webregister=aa)
+#
+# 			print(obj,'obj')
+# 			# if 'footer_eventimage' not in request.POST:
+# 			# 	print(form1,"in first form")
+# 			# 	return render(request,'objects.html',{"abc":form1})
+#
+#
+# 		form = EventregisteruserForm(request.POST, request.FILES, instance=obj)
+# 		if form.is_valid():
+# 			print(mail_id,'im here')
+# 			header_eventimage = form.cleaned_data.get('header_eventimage')
+# 			footer_eventimage = form.cleaned_data.get('footer_eventimage')
+# 			streaming_header = form.cleaned_data.get('streaming_header')
+# 			streaming_leftpanel = form.cleaned_data.get('streaming_leftpanel')
+# 			streaming_rightpanel = form.cleaned_data.get('streaming_rightpanel')
+#
+#
+# 			types = ['.jpg', '.png', '.jpeg','.PNG']
+#
+# 			import pathlib
+# 			if header_eventimage:
+# 				a = pathlib.Path(str(header_eventimage)).suffix
+#
+# 				if a not in types:
+# 					return redirect('/partner_visibility',
+# 									messages.error(request, 'Please proper format for header_eventimage', 'alert-danger'))
+#
+# 				if header_eventimage:
+# 					if header_eventimage.size > 1000 * 100:  # 41937
+# 						# print("header_eventimage.size", header_eventimage.size)
+# 						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for header_eventimage', 'alert-danger'))
+#
+# 			if footer_eventimage:
+# 				b = pathlib.Path(str(footer_eventimage)).suffix
+#
+# 				if b not in types:
+# 					return redirect('/partner_visibility',
+# 									messages.error(request, 'Please proper format for footer_eventimage', 'alert-danger'))
+#
+# 				if footer_eventimage:
+# 					if footer_eventimage.size > 1000 * 100:  # 41937
+# 						# print("header_eventimage.size", header_eventimage.size)
+# 						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for footer_eventimage ', 'alert-danger'))
+#
+# 			if streaming_header:
+# 				c = pathlib.Path(str(streaming_header)).suffix
+#
+# 				if c not in types:
+# 					return redirect('/partner_visibility',
+# 									messages.error(request, 'Please proper format for streaming_header', 'alert-danger'))
+#
+# 				if streaming_header:
+# 					if streaming_header.size > 1000 * 100:  # 41937
+# 						# print("header_eventimage.size", header_eventimage.size)
+# 						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_header', 'alert-danger'))
+#
+# 			if streaming_leftpanel:
+# 				d = pathlib.Path(str(streaming_leftpanel)).suffix
+#
+# 				if d not in types:
+# 					return redirect('/partner_visibility',
+# 									messages.error(request, 'Please proper format for streaming_leftpanel', 'alert-danger'))
+#
+# 				if streaming_leftpanel:
+# 					if streaming_leftpanel.size > 700 * 200:  # 41937
+# 						# print("header_eventimage.size", header_eventimage.size)
+# 						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_leftpanel', 'alert-danger'))
+# 			if streaming_rightpanel:
+# 				e = pathlib.Path(str(streaming_rightpanel)).suffix
+#
+# 				if e not in types:
+# 					return redirect('/partner_visibility',
+# 									messages.error(request, 'Please proper format for streaming_leftpanel', 'alert-danger'))
+#
+# 				if streaming_rightpanel:
+# 					if streaming_rightpanel.size > 700 * 200:  # 41937
+# 						# print("header_eventimage.size", header_eventimage.size)
+# 						return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration for streaming_rightpanel', 'alert-danger'))
+#
+#
+#
+# 			if form.save():
+#
+# 				print("form saved now")
+# 				return redirect('/partner_visibility',
+# 								messages.success(request, 'visibility is successfully submitted.', 'alert-success'))
+# 			else:
+# 				return redirect('/partner_visibility', messages.error(request, 'Images should have proper configuration', 'alert-danger'))
+#
+# 		else:
+# 			return redirect('/partner_visibility', messages.error(request, 'visibilityis not valid', 'alert-danger'))
+# 	else:
+#
+# 		form = EventregisteruserForm()
+# 		return render(request, 'partner_visibility.html', {'form': form})
