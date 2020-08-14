@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
-DATE_INPUT_FORMATS = ('%d/%m/%Y','%d-%m-%Y','%Y-%m-%d')
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -118,10 +118,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-DATE_INPUT_FORMAT = (
-    ('%d/%m/%Y','%m/%d/%Y')
-)
 
+DATE_INPUT_FORMATS = (
+    '%d.%m.%Y', '%d.%m.%Y', '%d.%m.%y',  # '25.10.2006', '25.10.2006', '25.10.06'
+    '%d-%m-%Y', '%d/%m/%Y', '%d/%m/%y',  # '25-10-2006', '25/10/2006', '25/10/06'
+
+)
 # StatDATE_INPUT_FORMAT = (
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 

@@ -119,9 +119,13 @@ def eventregister(request):
 		# form1 = EventregisteruserForm(request.POST, request.FILES)
 		print(form.errors)
 		if form.is_valid():
+			start = form.cleaned_data['created_on']
+			print(start,'start')
+			end= form.cleaned_data['end_on']
+			print(end,'end')
 			if form.save():
 				return redirect('/eventtable',
-								messages.success(request, 'Event is successfully updated.', 'alert-success'))
+								messages.success(request, 'Event is successfully stored.', 'alert-success'))
 			else:
 				return redirect('/eventtable', messages.error(request, 'Event is not saved', 'alert-danger'))
 		else:

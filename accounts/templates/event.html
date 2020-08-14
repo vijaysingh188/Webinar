@@ -62,6 +62,10 @@
                                                 {{ form.created_on | add_class:'form-control' }}
 
                                             </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label>End Date / Time <span class="red-color"> * </span></label>
+                                                {{ form.end_on | add_class:'form-control' }}
+                                            </div>
 
                                             <div class="col-md-4 mb-3">
                                                 <label>Chairpersons Name</label>
@@ -165,6 +169,18 @@
     <script>
   $(function() {
     $( "#datetime_from" ).datepicker({
+      dateFormat: 'dd/mm/yy',
+      changeMonth: true,
+      changeYear: true,
+      yearRange: "1900:2020",
+      // You can put more options here.
+
+  });
+});
+  </script>
+    <script>
+  $(function() {
+    $( "#datetime_to" ).datepicker({
       dateFormat: 'dd/mm/yy',
       changeMonth: true,
       changeYear: true,

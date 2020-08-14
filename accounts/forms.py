@@ -214,6 +214,8 @@ class Eventregistertable(forms.ModelForm):
     eventtype = forms.ChoiceField(choices=EVENT_OPTION)
     created_on = forms.DateField(widget=forms.DateInput(attrs={'id': 'datetime_from'}, format='%d/%m/%Y'),
                                  input_formats=settings.DATE_INPUT_FORMATS)
+    end_on = forms.DateField(widget=forms.DateInput(attrs={'id': 'datetime_to'}, format='%d/%m/%Y'),
+                                 input_formats=settings.DATE_INPUT_FORMATS)
     Chairpersons = forms.CharField(required=False)
     name = forms.CharField(widget=forms.TextInput(), required=False)
     mobilenumber = forms.CharField(max_length=10, min_length=10, widget=forms.TextInput(), required=False)

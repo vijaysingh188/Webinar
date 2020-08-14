@@ -45,6 +45,7 @@ class Webregister(models.Model):
     targetaudiance = models.CharField(max_length=255)
     eventtype = models.CharField(max_length=255)
     created_on = models.DateField(null=True,blank=True)
+    end_on = models.DateField(null=True,blank=True)
     Chairpersons = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     mobilenumber = models.CharField(max_length=255)
